@@ -1,5 +1,25 @@
 spring:
-  profile: dev
-
-  server:
-    port: 3030
+  application:
+    name: OASIS
+  profiles:
+    active: dev
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+forecast-io:
+  api:
+    key: a78c9e6952fbb80168611297fed8bc3c
+open-weather:
+  api:
+    key: 1d82742ee19d794f79341fab6dac7b50
+jwt:
+  secret:
+    key: code-monkey
+  token:
+    expiration:
+      seconds:
+        without-remember-me: 86400
+        with-remember-me: 2592000
+    header: Authorization
+    param: access_token
+    prefix: Bearer
