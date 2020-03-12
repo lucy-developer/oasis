@@ -1,0 +1,179 @@
+{
+  "name": "oasis",
+  "version": "1.0.0",
+  "description": "OASIS Frontend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node scripts/start.js",
+    "start:local": "cp ./.env.loc ./.env && node scripts/start.js",
+    "start:dev": "cp ./.env.dev ./.env && node scripts/start.js",
+    "start:prod": "cp ./.env.prod ./.env && node scripts/start.js",
+    "build": "node scripts/build.js",
+    "build:local": "cp ./.env.loc ./.env && node scripts/build.js",
+    "build:dev": "cp ./.env.dev ./.env && node scripts/build.js",
+    "build:prod": "cp ./.env.prod ./.env && node scripts/build.js",
+    "test": "node scripts/test.js",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "compile-sass": "node-sass src/assets/scss/paper-dashboard.scss src/assets/scss/paper-dashboard.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-decorators": "^7.7.4",
+    "@svgr/webpack": "4.1.0",
+    "@types/googlemaps": "3.30.16",
+    "@types/markerclustererplus": "2.1.33",
+    "@types/react": "16.7.1",
+    "axios": "^0.19.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "9.0.0",
+    "babel-jest": "23.6.0",
+    "babel-loader": "8.0.5",
+    "babel-plugin-named-asset-import": "^0.3.1",
+    "babel-preset-react-app": "^7.0.2",
+    "bootstrap": "4.4.1",
+    "case-sensitive-paths-webpack-plugin": "^2.3.0",
+    "classnames": "latest",
+    "css-loader": "1.0.0",
+    "dotenv": "6.0.0",
+    "dotenv-expand": "4.2.0",
+    "eslint": "6.1.0",
+    "eslint-config-airbnb": "18.0.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-react-app": "^3.0.8",
+    "eslint-loader": "2.1.1",
+    "eslint-plugin-flowtype": "2.50.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "file-loader": "2.0.0",
+    "file-saver": "^2.0.2",
+    "jest": "23.6.0",
+    "jest-pnp-resolver": "1.0.2",
+    "jest-resolve": "23.6.0",
+    "jest-watch-typeahead": "^0.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "mobx": "^5.10.0",
+    "mobx-react": "^5.3.6",
+    "moment": "^2.24.0",
+    "node-sass": "4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "perfect-scrollbar": "1.4.0",
+    "postcss-flexbugs-fixes": "^4.2.0",
+    "postcss-loader": "3.0.0",
+    "postcss-safe-parser": "^4.0.2",
+    "prop-types": "15.6.2",
+    "react": "16.6.0",
+    "react-app-polyfill": "^0.2.2",
+    "react-big-calendar": "0.20.2",
+    "react-bootstrap-sweetalert": "4.4.1",
+    "react-bootstrap-switch": "15.5.3",
+    "react-bootstrap-wizard": "0.0.5",
+    "react-chartjs-2": "2.7.4",
+    "react-datetime": "2.16.2",
+    "react-dev-utils": "^8.0.0",
+    "react-dom": "16.6.0",
+    "react-ga": "^2.7.0",
+    "react-google-maps": "9.4.5",
+    "react-jvectormap": "0.0.4",
+    "react-notification-alert": "0.0.8",
+    "react-router-dom": "4.3.1",
+    "react-select": "2.1.1",
+    "react-table": "6.8.6",
+    "react-tagsinput": "3.19.0",
+    "reactstrap": "8.2.0",
+    "resolve": "latest",
+    "sass-loader": "7.1.0",
+    "style-loader": "0.23.1",
+    "terser-webpack-plugin": "latest",
+    "url-loader": "1.1.2",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-manifest-plugin": "^2.2.0",
+    "xlsx": "^0.15.3",
+    "qs": "latest"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "4.0.0-alpha.2",
+    "mini-css-extract-plugin": "^0.9.0",
+    "pnp-webpack-plugin": "^1.6.4",
+    "postcss-preset-env": "^6.7.0",
+    "webpack": "^4.42.0",
+    "workbox-webpack-plugin": "^5.0.0"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "resolver": "jest-pnp-resolver",
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
+    ],
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "watchPlugins": [
+      "/Users/elpingaebal/git/lpin-web-admin-customer-v1-bak/node_modules/jest-watch-typeahead/filename.js",
+      "/Users/elpingaebal/git/lpin-web-admin-customer-v1-bak/node_modules/jest-watch-typeahead/testname.js"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}

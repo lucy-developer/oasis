@@ -1,0 +1,213 @@
+//import $ from './util';
+import { HOST, API_HOST } from './config';
+import api from './util';
+//const $ = require('./util');
+
+// let api;
+//
+// export default api = {
+//     client: {
+//         lastVersion: () => {
+//             return axiosGet(HOST + 'client/LastVersion')
+//         },
+//         downloadUrl: () => {
+//             return HOST + 'client/download'
+//         }
+//     },
+//     user: {
+//         login: (username, password) => {
+//             return axiosGet('user/login', { username, password })
+//         },
+//         list: (params) => {
+//             return axiosGet('user/list', params)
+//         },
+//         leaders: (userId = 0) => {
+//             return axiosGet('user/parentTitleUserList', { userId })
+//         }
+//     },
+//     message: {
+//         unreads: (top) => {
+//             return axiosGet('message/list', { hasRead: false, action: 'receive', page: 1, rows: top });
+//         },
+//         read: (id) => {
+//             return axiosGet('message/read', { id });
+//         },
+//         readAll: () => {
+//             return axiosGet('message/readall');
+//         },
+//         list: (hasRead, page = 1, rows = 10) => {
+//             return axiosGet('message/list', { hasRead, page, rows, action: 'receive' });
+//         },
+//         delete: (id) => {
+//             return axiosGet('message/delete', { id });
+//         }
+//     },
+//     flowData: {
+//         users: (flowId = 0, flowNodeId = 0, flowDataId = 0, flowStep = 1) => {
+//             return axiosGet('flowdata/userlist', { flowId, flowNodeId, flowDataId, flowStep })
+//         },
+//         submit: (data) => {
+//             const toUserId = data.ToUserId || 0;
+//             const infoId = data.InfoId || 0;
+//             const nextFlowNodeId = data.NextFlowNodeId || 0;
+//             return axiosPost('flowdata/submit', { toUserId, infoId, nextFlowNodeId }, data);
+//         },
+//         cancel: (infoId) => {
+//             axiosGet('flowdata/Cancel', { infoId })
+//         }
+//     },
+//     freeflowData: {
+//         submit: (infoId, flowNodeDataId, toUserIds = '', ccUserIds = '', formData) => {
+//             return axiosPost('freeflowdata/submit', { infoId, flowNodeDataId, toUserIds, ccUserIds }, formData)
+//         },
+//         complete: (freeflowDataId, infoId) => {
+//             return axiosGet('freeflowdata/complete', { id: freeflowDataId, infoId })
+//         },
+//         users: (flowNodeDataId, key = '') => {
+//             return axiosGet('freeflowdata/userlist', { flowNodeDataId, key })
+//         }
+//     },
+//     formInfo: {
+//         model: (id) => {
+//             return axiosGet('formInfo/model', { id });
+//         }
+//     },
+//     sms: {
+//         send: (userIds, infoId) => {
+//             return axiosGet('sms/send', { userId: userIds.join(), infoId })
+//         }
+//     },
+//     file: {
+//         list: (infoId, inline = false) => {
+//             return axiosGet('file/list', { infoId, inline, page: 1, rows: 100 })
+//         },
+//         getUrl: (fileId) => {
+//             return API_HOST + 'file/index?id=' + fileId
+//         },
+//         getDownloadUrl: (fileId) => {
+//             return HOST + 'attachment/download?id=' + fileId;
+//         }
+//     },
+//     missive: {
+//         list: (params) => {
+//             return axiosGet('missive/list', params)
+//         },
+//         model: (id) => {
+//             return axiosGet('missive/model', { id });
+//         },
+//         report: (id) => {
+//             return axiosGet('missive/report', { id });
+//         }
+//     },
+//     task: {
+//         list: (params) => {
+//             return axiosGet('task/list', params)
+//         },
+//         model: (id) => {
+//             return axiosGet('task/model', { id });
+//         },
+//         subTaskList: (taskId) => {
+//             return axiosGet('task/subtasklist', { taskId })
+//         },
+//         submitSubTask: (id, content) => {
+//             return axiosPost('task/submitsubtask', { id }, { content })
+//         },
+//         checkSubTask: (id, result, content) => {
+//             return axiosPost('task/checksubTask', { id, result }, { content })
+//         },
+//         todoList: (subTaskId) => {
+//             return axiosGet('task/todolist', { subTaskId })
+//         },
+//         updateTodoStatus: (todoId) => {
+//             return axiosGet('task/updatetodostatus', { id: todoId })
+//         }
+//     },
+//     attendance: {
+//         month: (year, month) => {
+//             return axiosGet('attendance/month', { year, month })
+//         },
+//         leave: (data) => {
+//             return axiosPost('attendance/apply', null, data)
+//         }
+//     },
+//     formExtend1: {
+//         list: (params) => {
+//             return axiosGet('formInfoExtend1/list', params)
+//         },
+//         approval: (id, result = true, toUserId = 0) => {
+//             return axiosGet('FormInfoExtend1/approval', { id, result, toUserId })
+//         },
+//         back: (id, backTime) => {
+//             return axiosGet('FormInfoExtend1/back', { id, backTime })
+//         }
+//     },
+//     salary: {
+//         years: (userId) => {
+//             return axiosGet('salary/getyears', { userId })
+//         },
+//         salaries: (params) => {
+//             return axiosGet('salary/salaries', params)
+//         },
+//         salaryDatas: (params) => {
+//             return axiosGet('salary/salaryDatas', params)
+//         }
+//     },
+//     car: {
+//         list: () => {
+//             return axiosGet('car/list')
+//         },
+//         apply: data => {
+//             return axiosPost('car/apply', null, data)
+//         }
+//     },
+//     meetingroom: {
+//         list: () => {
+//             return axiosGet('meetingroom/list')
+//         },
+//         apply: data => {
+//             return axiosPost('meetingroom/apply', null, data)
+//         }
+//     },
+//     seal: {
+//         list: () => {
+//             return axiosGet('seal/list')
+//         },
+//         apply: data => {
+//             return axiosPost('seal/apply', null, data)
+//         }
+//     },
+//     mail: {
+//         list: (params) => {
+//             return axiosGet('mail/list', params)
+//         },
+//         send: (data) => {
+//             return axiosPost('mail/send', null, data)
+//         },
+//         save: (data) => {
+//             return axiosPost('mail/save', null, data)
+//         },
+//         model: (id) => {
+//             return axiosGet('mail/model', { id })
+//         },
+//         delete: (id) => {
+//             return axiosPost('mail/delete', { id })
+//         }
+//     },
+//     userInfo: {
+//         star: (id) => {
+//             axiosGet('userinfo/star', { id })
+//         },
+//         unStar: id => {
+//             axiosGet('userinfo/unstar', { id })
+//         },
+//         trash: id => {
+//             axiosPost('userinfo/trash', { id })
+//         },
+//         delete: id => {
+//             axiosPost('userinfo/delete', { id })
+//         },
+//         recovery: id => {
+//             axiosGet('userinfo/recovery', { id })
+//         }
+//     }
+// }

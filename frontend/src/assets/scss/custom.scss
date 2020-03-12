@@ -1,0 +1,338 @@
+.loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+  z-index: 9999;
+}
+
+.loaderImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -32px;
+  margin-top: -32px;
+}
+
+.custom-logo {
+  width: 10rem;
+}
+
+.dashboard-card-image {
+  padding-top: 0.5rem;
+}
+
+.dashboard-card-title {
+  padding-top: 1rem;
+  margin-right: 10px;
+  margin-bottom: 0;
+  font-size: 19px;
+}
+
+.dashboard-card-content {
+  font-size: 36px;
+  margin-right: 10px;
+  color: rgba(112, 112, 112, 1)
+}
+
+.dashboard-card-link {
+  font-size: 18px;
+  color: $default-color;
+  &:hover {
+    color: darken($default-color, 10%)
+  }
+}
+
+.sidebar-icon {
+  width: 1.5rem;
+}
+
+.sidebar-text{
+  padding-top: 2px;
+}
+
+.custom-dashboard {
+  min-height: 50rem;
+  padding-top: 6rem;
+  padding-bottom: 1rem;
+  background-color: #FFFFFF;
+  .date-header {
+    font-size: 28px;
+    margin-bottom: 2rem;
+  }
+  .DashboardCard {
+    background-color: #F3F3F6;
+    border: 1px solid $default-color;
+    .card-footer {
+      padding-top: 0;
+    }
+  }
+}
+
+.admin-page {
+  min-height: 50rem;
+  padding-top: 6rem;
+
+  h3 {
+    margin-left: 2rem;
+  }
+
+}
+
+.search-card {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+
+  .search-label {
+    padding: 5px 5px !important;
+    font-size: 1rem !important;
+    color: rgba(0,0,0,1) !important;
+  }
+
+  .form-control {
+    color: #000000;
+  }
+
+  .datetime-custom {
+    background-color: #FFFFFF;
+    cursor: pointer;
+  }
+  .datetime-custom-left {
+    padding-right: 0;
+  }
+
+  .select-disabled{
+    cursor: not-allowed;
+    & .react-select__control--is-disabled {
+
+      background-color: #E3E3E3 !important;
+    }
+  }
+
+  .datetime-custom-center {
+    font-size: 25px !important;
+    color: $primary-color !important;
+    padding-top: 0 !important;
+  }
+
+  .datetime-custom-right {
+    padding-left: 0;
+  }
+
+  .search-button {
+    margin: auto;
+    padding-bottom: 10px;
+  }
+}
+
+.body-card {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+
+  .page-label {
+    padding: 5px 5px !important;
+    color: rgba(0,0,0,1) !important;
+    margin: 0;
+  }
+
+  .page-div {
+    display: inline-flex;
+    select{
+      width: 5rem;
+      border: 1px solid $primary-color;
+    }
+  }
+
+  .btn-area {
+    text-align: right;
+    .btn {
+      margin: 0;
+    }
+  }
+  h4 {
+    margin-top: 0;
+  }
+
+  .table-body {
+    margin-top: 1rem;
+    th {
+      background-color: $default-color;
+      color: #ffffff;
+    }
+    td {
+      a {
+        color: #000000;
+        text-decoration: underline;
+        &:hover{
+          color: $danger-color;
+        }
+      }
+    }
+  }
+
+}
+
+.client-management-modal {
+  input {
+    border: 1px solid rgba(221, 221, 221, 1);
+    &:focus {
+      border: 1px solid darken(rgba(221, 221, 221, 1), 10%);
+    }
+  }
+
+  .left-side {
+    font-size: 1rem;
+    button {
+      color: rgba(112, 112, 112, 1);
+      &:hover {
+        background-color: rgba(112, 112, 112, 1) !important;
+      }
+    }
+
+  }
+  .right-side {
+    font-size: 1rem;
+  }
+}
+
+.modal-sm {
+  .modal-footer {
+    button {
+      background: transparent;
+      border: 2px solid rgba(102, 97, 91, 1) !important;
+      color: rgba(102, 97, 91, 1);
+      opacity: 1;
+      &:hover {
+        background-color: rgba(102, 97, 91, 1) !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+      }
+    }
+  }
+}
+
+.login-header {
+  img {
+    width: 80%;
+  }
+  padding-bottom: 30px;
+}
+
+.custom-mypage {
+  &:hover {
+    color: #ffffff !important;
+  }
+  &:active {
+    color: #ffffff !important;
+  }
+  &:focus {
+    color: #ffffff !important;
+  }
+}
+.custom-my-page-main-panel {
+  width: 100%;
+  height: 100%;
+  background-color: #F4F4F7;
+  .custom-my-page-content {
+    min-height: 50rem;
+    padding-top: 6rem;
+    padding-bottom: 1rem;
+
+    .my-page-label {
+      padding: 5px 5px !important;
+      font-size: 1rem !important;
+      color: rgba(0,0,0,1) !important;
+    }
+
+    .my-page-card {
+      margin: auto;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .my-page-card {
+    width: 60%;
+  }
+}
+
+.my-page-kebab {
+  background-color: #ffffff !important;
+}
+
+.errorBadge {
+  width: 100%;
+}
+
+.table-header {
+  border: 1px solid darken($default-color, 10%);
+}
+
+.loader-page {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  top: 0px;
+  left: 0px;
+  opacity: 1;
+  z-index: 9999;
+
+  .spinner-border {
+    color: $danger-color;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 3rem;
+    height: 3rem;
+    margin-left: -1.5rem;
+    margin-top: -1.5rem;
+  }
+}
+
+.index-header {
+  margin-top: 5rem;
+  border-bottom: 0 !important;
+}
+
+.index-layout {
+  min-height: 100vh;
+  background-position: right bottom;
+  background-size: 55%;
+  background-repeat: no-repeat;
+  .index-margin {
+    padding-top: 18rem;
+    .inner-text {
+      margin-top: 3rem;
+    }
+  }
+}
+
+.datetime-custom-month {
+  background-color: #FFFFFF !important;
+  cursor: pointer !important;
+  width: 10rem;
+  border: 1px solid $primary-color;
+  padding: 5px 10px 5px 10px !important;
+  height: unset;
+  &:active, &:focus, &:hover {
+    border: 1px solid $primary-color;
+  }
+}
+
+.custom-table {
+  min-width: 670px;
+}
+
+.custom-table-clickable {
+  cursor: pointer;
+}
+
+.version-label {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: auto;
+}
