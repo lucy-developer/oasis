@@ -1,0 +1,45 @@
+server:
+  port: 3030
+
+spring:
+  profiles:
+    active: dev
+  h2:
+    console:
+      enabled: true
+      path: /console
+#    jackson:
+#      serialization.indent_output: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ssnc-dev-instance-1.cl8sezajlvwe.ap-northeast-2.rds.amazonaws.com:5432/mis?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+    username: ssncuser
+    password: qhdks!2550
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        #        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+          format_sql: true
+          temp:
+            use_jdbc_metadata_defaults: false
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+
+wallbrain:
+  ws:
+    baseurl: https://fpms.ssecnc.co.kr/wallbrain-ws/api
+    api-user-id: apiuser
+    api-user-password: test
