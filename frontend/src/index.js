@@ -30,6 +30,7 @@ ReactDOM.render(
 <Route paths="/auth" render={props => <SidebarWithoutLayout {...props} onUpdate={onUpdate} />} />
 <Route paths="/admin" render={props => <SidebarWithLayout {...props} onUpdate={onUpdate} />} />
 <Route paths="/my-page" render={props => <MyPageLayout {...props} onUpdate={onUpdate} />} />
+
 <Redirect from="/" to="/index" />
     </Switch>
     </HashRouter>

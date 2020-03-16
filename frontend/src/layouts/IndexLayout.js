@@ -28,7 +28,7 @@ class IndexLayout extends React.Component {
     render() {
         return (
             <>
-                <IndexHeader />
+                {/*<IndexHeader />*/}
                 <Switch>{this.getRoutes(routes())}</Switch>
             </>
         );
