@@ -1,6 +1,6 @@
-package app.ssnc.io.oasis.model
+package app.ssnc.io.oasis.entity.model
 
-import app.ssnc.io.oasis.model.enum.UserRole
+import app.ssnc.io.oasis.entity.model.enum.UserRole
 import org.hibernate.annotations.NaturalId
 import javax.persistence.*
 

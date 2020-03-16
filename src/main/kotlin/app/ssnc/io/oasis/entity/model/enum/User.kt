@@ -1,4 +1,4 @@
-package app.ssnc.io.oasis.model.enum
+package app.ssnc.io.oasis.entity.model.enum
 
 enum class EmployeePosition(val type: String, val desc: String) {
     CEO("CEO", "대표"),

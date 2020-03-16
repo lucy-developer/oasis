@@ -1,6 +1,7 @@
 package app.ssnc.io.oasis.exception
 
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.ResponseStatus
 
 class CustomException(
         override val message: String,
@@ -17,7 +18,8 @@ class PreconditionException(
         val httpCode : Int = 412
 ) : RuntimeException(message)
 
-class UniquenessFieldException(
-        message: String,
-        val httpCode : Int = 409
-) : RuntimeException(message)
+@ResponseStatus(HttpStatus.CONFLICT)
+class UniquenessFieldException(message: String?) : RuntimeException(message)
+
+@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+class HandleConstraintViolationException(message: String?) : RuntimeException(message)

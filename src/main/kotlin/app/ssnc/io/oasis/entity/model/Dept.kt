@@ -1,6 +1,6 @@
-package app.ssnc.io.oasis.model
+package app.ssnc.io.oasis.entity.model
 
-import app.ssnc.io.oasis.model.common.Auditable
+import app.ssnc.io.oasis.entity.model.common.Auditable
 import app.ssnc.io.oasis.util.equalsBuilder
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude

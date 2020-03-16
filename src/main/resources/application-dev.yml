@@ -37,9 +37,10 @@ logging:
     org:
       hibernate:
         SQL: debug
-
+swagger:
+  host-name: http://localhost:8080/v1
 wallbrain:
   ws:
     baseurl: https://fpms.ssecnc.co.kr/wallbrain-ws/api
-    api-user-id: apiuser
-    api-user-password: test
+    api-user-id: root
+    api-user-password: '!q1w2e3r4'
