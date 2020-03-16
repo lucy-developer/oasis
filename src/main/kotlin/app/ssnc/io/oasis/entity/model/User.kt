@@ -1,7 +1,7 @@
-package app.ssnc.io.oasis.model
+package app.ssnc.io.oasis.entity.model
 
-import app.ssnc.io.oasis.model.enum.EmployeePosition
-import app.ssnc.io.oasis.model.enum.EmployeeStatus
+import app.ssnc.io.oasis.entity.model.enum.EmployeePosition
+import app.ssnc.io.oasis.entity.model.enum.EmployeeStatus
 import app.ssnc.io.oasis.util.DateUtil
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.springframework.format.annotation.DateTimeFormat

@@ -1,6 +1,6 @@
 package app.ssnc.io.oasis.repository
 
-import app.ssnc.io.oasis.model.User
+import app.ssnc.io.oasis.entity.model.User
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification

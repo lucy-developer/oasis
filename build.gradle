@@ -94,6 +94,23 @@ dependencies {
     //postgre
     implementation 'org.postgresql:postgresql'
 
+    //string
+    compile("org.apache.commons:commons-lang3")
+
+    // walllbrain
+    compile files('lib/wallbrain-base-1.0.0-SNAPSHOT.jar')
+    compile files('lib/wallbrain-utils-1.0.0-SNAPSHOT.jar')
+
+    //swagger
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation("io.springfox:springfox-swagger2:2.9.2")
+
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-joda
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version: '2.0.4'
+    // https://mvnrepository.com/artifact/net.sf.json-lib/json-lib
+    compile group: 'net.sf.json-lib', name: 'json-lib', version: '2.4', classifier: 'jdk15'
 
     compileOnly 'org.projectlombok:lombok'
     compile 'com.h2database:h2'
@@ -127,7 +144,7 @@ task yarnStart(type: YarnTask) {
 }
 
 task copyWebApp(type: Copy) {
-    from "frontend/bookbug/build"
+    from "frontend/build"
     into 'build/resources/main/static/.'
 }
 
@@ -138,5 +155,5 @@ task copyWebApp(type: Copy) {
 
 yarnBuild.dependsOn appNpmInstall
 copyWebApp.dependsOn yarnBuild
-compileJava.dependsOn copyWebApp
+//compileJava.dependsOn copyWebApp
 //startWebApp.dependsOn appNpmInstall

@@ -50,11 +50,19 @@ object DateUtil {
         return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
     }
 
-    fun formatDateTime(dateTime: LocalDateTime, timePattern: String = DATE_TIME_PATTERN): String {
+    fun formatDateTimeToLocalDateTime(dateTime: LocalDateTime, timePattern: String = DATE_TIME_PATTERN): String {
         return dateTime.format(DateTimeFormatter.ofPattern(timePattern))
     }
 
-    fun formatDate(dateTime: LocalDateTime, timePattern: String = DATE_PATTERN): String {
+    fun formatDateToLocalDateTime(dateTime: LocalDateTime, timePattern: String = DATE_PATTERN): String {
+        return dateTime.format(DateTimeFormatter.ofPattern(timePattern))
+    }
+
+    fun formatDateTimeToLocalDate(dateTime: LocalDate, timePattern: String = DATE_TIME_PATTERN): String {
+        return dateTime.format(DateTimeFormatter.ofPattern(timePattern))
+    }
+
+    fun formatDateToLocalDate(dateTime: LocalDate, timePattern: String = DATE_PATTERN): String {
         return dateTime.format(DateTimeFormatter.ofPattern(timePattern))
     }
 
