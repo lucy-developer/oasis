@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavbarBrand, Navbar, Container } from 'reactstrap';
-import logo from '../../assets/img/logo_b.png';
+import logo from '../../assets/img/oasis_logo.png';
 
 class IndexHeader extends React.Component {
     render() {
