@@ -66,7 +66,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         authorizeRequests()
-                .antMatchers("/$API_VERSION/$API_PATH/$AUTH_PATH/**").permitAll()
+                .antMatchers("/$API_PATH/$API_VERSION/$AUTH_PATH/**").permitAll()
 //            .antMatchers("/$API_VERSION/$API_PATH/emp/**").permitAll()
 //            .antMatchers("/$API_VERSION/$CORE_PATH/**").permitAll()
 //			.antMatchers("/$API_VERSION/$SHOP_PATH/**").permitAll()

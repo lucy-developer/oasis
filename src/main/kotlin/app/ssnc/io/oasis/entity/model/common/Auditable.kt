@@ -1,4 +1,4 @@
-package app.ssnc.io.oasis.model.common
+package app.ssnc.io.oasis.entity.model.common
 
 import app.ssnc.io.oasis.util.DateUtil
 import com.vladmihalcea.hibernate.type.array.IntArrayType
