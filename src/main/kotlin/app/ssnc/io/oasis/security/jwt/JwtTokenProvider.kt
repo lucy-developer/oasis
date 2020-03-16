@@ -1,10 +1,10 @@
 package app.ssnc.io.oasis.security.jwt
 
 import io.jsonwebtoken.*
-import app.ssnc.io.oasis.common.config.SecurityConfig.TOKEN_EXPIRATION_TIME
-import app.ssnc.io.oasis.common.config.SecurityConfig.TOKEN_HEADER
-import app.ssnc.io.oasis.common.config.SecurityConfig.TOKEN_SECRET_KEY
-import app.ssnc.io.oasis.common.config.SecurityConfig.TOKEN_TYPE
+import app.ssnc.io.oasis.config.SecurityConfig.TOKEN_EXPIRATION_TIME
+import app.ssnc.io.oasis.config.SecurityConfig.TOKEN_HEADER
+import app.ssnc.io.oasis.config.SecurityConfig.TOKEN_SECRET_KEY
+import app.ssnc.io.oasis.config.SecurityConfig.TOKEN_TYPE
 import app.ssnc.io.oasis.exception.CustomException
 import app.ssnc.io.oasis.security.CustomUserDetails
 import app.ssnc.io.oasis.security.UserPrincipal

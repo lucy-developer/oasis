@@ -1,17 +1,17 @@
 .btn,
 .navbar .navbar-nav > a.btn{
+    font-family: NanumSquareB;
     border-width: $border-thick;
     font-weight: $font-weight-semi;
-    font-size: $font-size-large;
+    font-size: 26px;
     line-height: $line-height;
     text-transform: uppercase;
     border: none;
-    margin: 10px 1px;
-    border-radius: $border-radius-small;
-    padding: $padding-btn-vertical $padding-btn-horizontal;
+    margin: 12px 0 0 0;
+    //padding: $padding-btn-vertical $padding-btn-horizontal;
     cursor: pointer;
 
-    @include btn-styles($default-color, $default-states-color);
+    @include btn-styles(#1e7fba, $default-states-color);
     @include transition($fast-transition-time, linear);
 
     &:hover,
@@ -243,5 +243,5 @@
 }
 .btn + .btn,
 .btn-group + .btn-group {
-  margin-left: 5px;
+  //margin-left: 5px;
 }
