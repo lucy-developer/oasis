@@ -1,15 +1,17 @@
 package app.ssnc.io.oasis.handler.firewall.service
 
+import app.ssnc.io.oasis.entity.request.RequestRuleRequest
+import app.ssnc.io.oasis.entity.request.SearchRuleRequest
 import app.ssnc.io.oasis.exception.HandleConstraintViolationException
 import app.ssnc.io.oasis.exception.UniquenessFieldException
 import app.ssnc.io.oasis.handler.firewall.entity.SearchRuleReq
-import app.ssnc.io.oasis.handler.firewall.entity.SearchRuleRequest
 import app.ssnc.io.oasis.handler.firewall.entity.SearchRuleRes
 import app.ssnc.io.oasis.util.DateUtil
 import app.ssnc.io.oasis.util.wallbrain.WallBrainRestApiClient
 import app.ssnc.io.oasis.util.web.RestClient
 import com.sds.wallbrain.base.FirewallRuleSessionInfoVo
 import com.sds.wallbrain.base.RuleSetGroupInfoVo
+import mu.KLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -24,6 +26,8 @@ class FirewallService(
     @Value("\${wallbrain.ws.baseurl")
     val apiUrl: String
 ) {
+    companion object : KLogging()
+
     @Autowired
     private lateinit var wallBrainRestApiClient: WallBrainRestApiClient
 
@@ -46,26 +50,17 @@ class FirewallService(
         val results: Array<FirewallRuleSessionInfoVo> = wallBrainRestApiClient.searchRuleSetGroup("/provision/rule/search", searchRule)
 
         for (result in results ) {
-//            if (result.resultStatus == "notallowed")
-//                return
-
             if (result.resultStatus == "allowed")
                 throw UniquenessFieldException("방화벽 중복 등록 요청")
 
             if (result.isCompliance)
                 throw HandleConstraintViolationException(result.complianceComment)
         }
+    }
 
+    fun registerRequest(request: RequestRuleRequest) {
+        
 
-//        val respType = object: ParameterizedTypeReference<RuleSetGroupInfoVo>(){}
-//
-//        val uriComponentBuilder = UriComponentsBuilder.fromHttpUrl(apiUrl + "provision/rule/search.json")
-//
-//        val result = restClient.exchange(
-//            HttpMethod.GET, apiUrl + "provision/rule/search.json",
-//            apiUserId, apiUserPasswd, "",
-//            Array<RuleSetGroupInfoVo>::class.java,
-//        )
     }
 
 
