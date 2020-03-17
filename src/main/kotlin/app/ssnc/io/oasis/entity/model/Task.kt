@@ -1,6 +1,7 @@
 package app.ssnc.io.oasis.entity.model
 
 import app.ssnc.io.oasis.entity.model.common.Auditable
+import app.ssnc.io.oasis.entity.model.enum.AuditStatus
 import app.ssnc.io.oasis.entity.request.SearchRuleRequest
 import app.ssnc.io.oasis.util.Extension.equalsBuilder
 import app.ssnc.io.oasis.util.Extension.toStringBuilder
@@ -13,6 +14,7 @@ import java.util.*
 import javax.persistence.*
 
 private const val TASK_GENERATOR = "TaskGenerator"
+private const val TASK_ASSIGN_GENERATOR = "TaskAssignGenerator"
 
 @Entity
 @Table(
@@ -22,23 +24,24 @@ private const val TASK_GENERATOR = "TaskGenerator"
 @DynamicUpdate
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class Task (
+data class Task(
     @Id
     @SequenceGenerator(name = TASK_GENERATOR, sequenceName = "TASK_SEQ", initialValue = 1, allocationSize = 1)
     @GeneratedValue(generator = TASK_GENERATOR)
     var id: Long? = null,
 
-    @Column( name = "key", unique = true, nullable = false)
-    var key: String,
+    @Column(name = "key")
+    val key: String,
 
     @Column(name = "project_seq")
-    var projectSeq: String,
+    var projectSeq: Long,
 
     @Column(name = "title")
     var title: String,
 
-    @Column( name = "status", unique = false, nullable = false, insertable = true, updatable = true)
-    var status: String,
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", unique = false, nullable = false, insertable = true, updatable = true)
+    var status: AuditStatus = AuditStatus.PENDING,
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "creator_id", unique = false, nullable = false, insertable = true, updatable = true)
@@ -70,4 +73,50 @@ data class Task (
 
     override fun hashCode(): Int =
         Objects.hash(id, key)
+}
+
+@Entity
+@Table(
+    schema = "core", name = "task_assign"
+//    ,indexes = [Index(name = "idx1_product", columnList = "name", unique = true)]
+)
+@DynamicUpdate
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+data class TaskAssign (
+    @Id
+    @SequenceGenerator(name = TASK_ASSIGN_GENERATOR, sequenceName = "TASK_ASSIGN_SEQ", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(generator = TASK_ASSIGN_GENERATOR)
+    var id: Long? = null,
+
+    @Column(name = "project_seq")
+    var projectSeq: Long,
+
+    @Column(name = "order")
+    var order: Long,
+
+    @Column( name = "status", unique = false, nullable = false, insertable = true, updatable = true)
+    var status: String,
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @JoinColumn(name = "creator_id", unique = false, nullable = false, insertable = true, updatable = true)
+    var assign: User
+
+) : Auditable(), Serializable {
+
+    override fun toString() =
+        toStringBuilder(
+            TaskAssign::projectSeq,
+            TaskAssign::order
+        )
+
+    override fun equals(other: Any?): Boolean =
+        equalsBuilder(
+            other,
+            TaskAssign::projectSeq,
+            TaskAssign::order
+        )
+
+    override fun hashCode(): Int =
+        Objects.hash(projectSeq, order)
 }

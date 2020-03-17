@@ -1,7 +1,11 @@
 package app.ssnc.io.oasis.handler.task.service
 
 import app.ssnc.io.oasis.entity.model.Project
+import app.ssnc.io.oasis.entity.model.Task
+import app.ssnc.io.oasis.entity.model.TaskAssign
 import app.ssnc.io.oasis.entity.request.CreateProjectRequest
+import app.ssnc.io.oasis.entity.request.FirewallRequest
+import app.ssnc.io.oasis.exception.ResourceNotFoundException
 import app.ssnc.io.oasis.exception.UniquenessFieldException
 import app.ssnc.io.oasis.handler.user.service.UserService
 import app.ssnc.io.oasis.repository.ProjectRepository
@@ -41,6 +45,29 @@ class TaskService {
             projectRepository.save(newProject).apply {
             }
         }
+    }
+
+    fun findProjectByName(name: String): Project? {
+        return projectRepository.findByName(name).orElseThrow { throw ResourceNotFoundException("Project not found")  }
+    }
+
+    fun generationKey(seq: Long) : String {
+        val project = projectRepository.findById(seq).get()
+
+        taskRepository.findFirstByProjectSeqOrderByKeyDesc(seq)?.let { exist ->
+            return String.format("%s-%05d", project.key , exist.key.split('-')[1].toLong()+1)
+        } ?: run {
+          return   String.format("%s-%05d", project.key , 1)
+        }
+    }
+
+    //@Throws
+    fun createTask(task: Task) {
+        taskRepository.save(task)
+    }
+
+    fun createTaskAssigns(taskAssign: TaskAssign) {
+
     }
 
 
