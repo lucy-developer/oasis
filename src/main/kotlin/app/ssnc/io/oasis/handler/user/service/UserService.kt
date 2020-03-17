@@ -5,6 +5,7 @@ import app.ssnc.io.oasis.exception.ResourceNotFoundException
 import app.ssnc.io.oasis.repository.EmployeeRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class UserService {
@@ -33,6 +34,10 @@ class UserService {
     fun findByName(id: String) : User? {
         return employeeRepository.findByUsername(id)
             .orElseThrow {  throw ResourceNotFoundException("User not found") }
+    }
+
+    fun findById(id: Long): Optional<User> {
+        return employeeRepository.findById(id)
     }
 
 }
