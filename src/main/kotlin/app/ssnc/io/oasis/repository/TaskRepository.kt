@@ -8,9 +8,11 @@ import java.util.*
 
 @Repository
 interface TaskRepository : CrudRepository<Task, Long> {
+    fun findFirstByProjectSeqOrderByKeyDesc(projectSeq: Long): Task?
 }
 
 @Repository
 interface ProjectRepository: CrudRepository<Project, Long> {
     fun findByNameOrKey(name: String, key: String): Optional<Project>
+    fun findByName(name: String): Optional<Project>
 }

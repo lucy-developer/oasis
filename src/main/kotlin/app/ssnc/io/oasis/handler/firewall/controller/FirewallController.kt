@@ -3,7 +3,7 @@ package app.ssnc.io.oasis.handler.firewall.controller
 import app.ssnc.io.oasis.config.ApiConfig
 import app.ssnc.io.oasis.config.ApiConfig.API_PATH
 import app.ssnc.io.oasis.config.ApiConfig.API_VERSION
-import app.ssnc.io.oasis.entity.request.RequestRuleRequest
+import app.ssnc.io.oasis.entity.request.FirewallRequest
 import app.ssnc.io.oasis.entity.request.SearchRuleRequest
 import app.ssnc.io.oasis.handler.firewall.service.FirewallService
 import io.swagger.annotations.Api
@@ -52,8 +52,8 @@ class FirewallController {
     fun requestRule(@RequestBody request: SearchRuleRequest) =
         ok(firewallService.searchRule(request))
 
-    @PostMapping("/register")
-    @ApiOperation(value = "방화벽 신청 API")//, response = Greeting::class)
+    @PostMapping("/approval")
+    @ApiOperation(value = "방화벽 승인 요청 API")//, response = Greeting::class)
     @ApiResponses(
         value = *arrayOf(
             ApiResponse(code = 200, message = "OK"),
@@ -62,6 +62,6 @@ class FirewallController {
             ApiResponse(code = 422, message = "Firewall Compliance")
         )
     )
-    fun registerRule(@RequestBody request: RequestRuleRequest) =
-        ok(firewallService.registerRequest(request))
+    fun approvalFirewall(@RequestBody request: FirewallRequest) =
+        ok(firewallService.approvalFirewall(request))
 }

@@ -26,10 +26,11 @@ data class SearchRuleRequest (
     val status: String
 )
 
-data class RequestRuleRequest (
+data class FirewallRequest (
     val rules: MutableSet<SearchRuleRequest>,
     val assigns: List<Assign>,
-    val receiver: Assign
+    val receiver: Assign,
+    val creator: Long
 )
 
 data class Assign (
