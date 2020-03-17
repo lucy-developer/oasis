@@ -19,3 +19,15 @@ data class SearchRuleRequest (
     val end_date: LocalDate,
     val comment: String?
 )
+
+data class RequestRuleRequest (
+    val rules: List<SearchRuleRequest>,
+    val assigns: List<assign>,
+    val receiver: assign
+)
+
+data class assign (
+    val user_id: String,
+    val username: String,
+    val order: Int? = 0
+)

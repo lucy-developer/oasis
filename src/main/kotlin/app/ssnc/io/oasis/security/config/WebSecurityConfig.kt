@@ -14,11 +14,14 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.BeanIds
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
+
 
 @Configuration
 //@EnableWebSecurity(debug = true)
@@ -59,6 +62,13 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     override fun authenticationManagerBean(): AuthenticationManager = super.authenticationManagerBean()
 
+    @Throws(java.lang.Exception::class)
+    override fun configure(web: WebSecurity) {
+        web.ignoring().antMatchers("/resources/**").antMatchers("/swagger-ui.html")
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**");
+    }
+
+
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity): Unit = with(http) {
         csrf().disable()
@@ -66,11 +76,18 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
         authorizeRequests()
-                .antMatchers("/$API_PATH/$API_VERSION/$AUTH_PATH/**").permitAll()
+            .antMatchers("/$API_PATH/$API_VERSION/$AUTH_PATH/**").permitAll()
+            .antMatchers(
+                "/v2/api-docs",
+                "/swagger-resources/**",
+                "/swagger-ui.html",
+                "/webjars/**" ,
+                /*Probably not needed*/ "/swagger.json").permitAll()
 //            .antMatchers("/$API_VERSION/$API_PATH/emp/**").permitAll()
 //            .antMatchers("/$API_VERSION/$CORE_PATH/**").permitAll()
 //			.antMatchers("/$API_VERSION/$SHOP_PATH/**").permitAll()
-                .anyRequest().authenticated()
+
+            .anyRequest().authenticated()
 
 //		apply(JwtConfigurerAdapter(tokenProvider))
         addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter::class.java)
@@ -125,4 +142,15 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 //        source.registerCorsConfiguration("/**", configuration)
 //        return source
 //    }
+
+    //static 리소스 처리
+    fun addResourceHandlers(registry: ResourceHandlerRegistry) {
+        registry.addResourceHandler("/resources/**")
+            .addResourceLocations("/WEB-INF/resources/")
+        registry.addResourceHandler("swagger-ui.html")
+            .addResourceLocations("classpath:/META-INF/resources/")
+        registry.addResourceHandler("/webjars/**")
+            .addResourceLocations("classpath:/META-INF/resources/webjars/")
+    }
+
 }

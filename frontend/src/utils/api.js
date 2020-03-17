@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api1url = url => {
-    return 'http://localhost:3030';
+    return 'http://localhost:3030'+url;
 };
 
 const getRequestHeader = config => {
@@ -10,11 +10,17 @@ const getRequestHeader = config => {
         return {
             ...config,
             headers: {
-                Authorization: `Bearer ${authToken}`
+                Authorization: `Bearer ${authToken}`,
+                'Content-Type': 'application/json',
             }
         }
     }
-    return config;
+    return {
+        ...config,
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    };
 };
 
 const api = {
@@ -22,7 +28,11 @@ const api = {
         return axios.get(api1url(url), getRequestHeader(config));
     },
     post: (url, data = {}, config = {}) => {
-        return axios.post(api1url(url), data, getRequestHeader(config));
+        //return axios.post(api1url(url), data, getRequestHeader(config));
+        return axios.post(api1url(url), data, config).then(response => {
+            //setToken(response);
+            return response;
+        });
     },
     patch: (url, data = {}, config = {}) => {
         return axios.patch(api1url(url), data, getRequestHeader(config));
