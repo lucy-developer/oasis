@@ -21,16 +21,17 @@ class CustomUserDetails : UserDetailsService {
     override fun loadUserByUsername(email: String): UserDetails {
 
         logger.info{ "loadUserByUsername username: " + email }
-        employeeRepository.findEmployeesByEmail(email)?.let { profile ->
+        try {
+            val profile = employeeRepository.findEmployeesByEmail(email).get()
             logger.info{ "loadUserByUsername find email: " + profile.email }
 //            val authorities = profile.role.map {role -> SimpleGrantedAuthority(role.name.name)}.toList()
 //            return UserPrincipal(
 //                profile, authorities = authorities )
             return UserPrincipal.create(profile)
+        } catch (e: UsernameNotFoundException) {
+            logger.info { "loadUserByUsername find not email: " + email }
+            throw UsernameNotFoundException("User '$email' not found")
         }
-
-        logger.info{ "loadUserByUsername find not email: " + email }
-        throw UsernameNotFoundException("User '$email' not found")
     }
 
     @Transactional

@@ -1,5 +1,6 @@
 import { action, observable, runInAction } from 'mobx';
-import api from '../../utils/api.js_';
+import qs from 'qs';
+import api from '../../utils/api';
 
 class SignInStore {
     @observable loginName = '';
@@ -25,13 +26,20 @@ class SignInStore {
     signIn = async () => {
         this.root.toggleLoading();
         //const signIn = this.api.login();
-        const { data } = await api.login({
-            params: { login_name: this.loginName, password: this.password },
+        const params = ({
+            email: this.loginName, password: this.password, admin_yn: "Y"
         });
+        const { data } = await api.post('/api/v1/auth/login', params, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }
+        );
+
         runInAction(() => {
             this.root.toggleLoading();
         });
-        await localStorage.setItem('jwtToken', data.accessToken);
+        await localStorage.setItem('jwtToken', data.access_token);
         await this.root.setAuthToken();
     };
 }

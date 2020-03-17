@@ -22,9 +22,11 @@ class AuthController {
     private lateinit var authService: AuthService
 
     @PostMapping(
-            path = ["/login"],
-            consumes = [MediaType.APPLICATION_JSON_VALUE],
-            produces = [MediaType.APPLICATION_JSON_VALUE])
+            path = ["/login"]
+//        ,
+//            consumes = [MediaType.APPLICATION_JSON_VALUE],
+//            produces = [MediaType.APPLICATION_JSON_VALUE]
+    )
     fun login(servlet: HttpServletRequest, @RequestBody request: LoginRequest
     ) = ResponseEntity.status(HttpStatus.OK).body(authService.login(servlet, request))
 }

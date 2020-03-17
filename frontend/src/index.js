@@ -29,8 +29,8 @@ ReactDOM.render(
 <HashRouter>
 <Switch>
     <Route paths="/index" render={props => <IndexLayout {...props} onUpdate={onUpdate} />} />
-    <Route paths="/auth" render={props => <SidebarWithoutLayout {...props} onUpdate={onUpdate} />} />
-    <Route paths="/auth/login" component={Login} />
+    {/*<Route paths="/auth" render={props => <SidebarWithoutLayout {...props} onUpdate={onUpdate} />} />*/}
+    {/*<Route paths="/auth/login" component={Login} />*/}
     <Route paths="/admin" render={props => <SidebarWithLayout {...props} onUpdate={onUpdate} />} />
     <Route paths="/my-page" render={props => <MyPageLayout {...props} onUpdate={onUpdate} />} />
 
