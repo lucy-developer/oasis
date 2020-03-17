@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Badge, Button, Container , CardFooter, InputGroup, InputGroupAddon, InputGroupText, Input, CardBody } from 'reactstrap';
+import { Badge, CardFooter, InputGroup, Input, CardBody } from 'reactstrap';
 import { NavLink, Route } from "react-router-dom";
 import { inject, observer } from 'mobx-react';
 import logo from "../assets/img/oasis_logo_login.png";
 import LoginForm from "../components/common/LoginForm";
 import AdminLoginForm from "../components/common/AdminLoginForm";
 // import Main from './Main'
+
+import '../assets/scss/Login.scss';
 
 // 인덱스 페이지(login)
 @inject('signInStore')
@@ -49,7 +51,7 @@ class Index extends Component {
             <div>
                 <div className="oasis-img">
                     <div className="login-logo">
-                        <img width="293" height="102" src={logo} alt="logo" />
+                        <img src={logo} alt="logo" />
                     </div>
                 </div>
 
@@ -59,8 +61,12 @@ class Index extends Component {
 
                         <div className='login-select'>
                             <ul className='login-ul'>
-                                <NavLink exact to="/auth/login" className="item" activeClassName="active"><li>User Login</li></NavLink>
-                                <NavLink to="/auth/login/admin" className="item" activeClassName="active"><li>Admin Login</li></NavLink>
+                                <NavLink exact to="/auth/login" className="item" activeClassName="active">
+                                    <li>User Login</li>
+                                </NavLink>
+                                <NavLink to="/auth/login/admin" className="item" activeClassName="active">
+                                    <li>Admin Login</li>
+                                </NavLink>
                             </ul>
                         </div>
 
@@ -70,31 +76,23 @@ class Index extends Component {
                         {/*</div>*/}
                         <CardBody>
                             <InputGroup>
-                                <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="nc-icon nc-single-02 text-danger" />
-                                    </InputGroupText>
-                                </InputGroupAddon>
                                 <Input
-                                    placeholder="휴대폰번호 또는 ID"
+                                    placeholder="E-mail"
                                     type="text"
                                     autoComplete="off"
                                     name="loginName"
+                                    className="form-input"
                                     onChange={signInStore.handleChange}
                                     onKeyPress={this.keyPressInputId}
                                 />
                             </InputGroup>
                             <InputGroup>
-                                <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="nc-icon nc-key-25 text-danger" />
-                                    </InputGroupText>
-                                </InputGroupAddon>
                                 <Input
-                                    placeholder="비밀번호"
+                                    placeholder="PW"
                                     type="password"
                                     autoComplete="off"
                                     name="password"
+                                    className="form-input"
                                     onChange={signInStore.handleChange}
                                     onKeyPress={this.keyPressPassword}
                                 />
@@ -104,9 +102,9 @@ class Index extends Component {
                             </Badge>
                         </CardBody>
                         <CardFooter>
-                            <Button block className="btn-default mb-3" color="default" onClick={this.login}>
+                            <button type="button" className="login-button" color="default" onClick={this.login}>
                                 로그인
-                            </Button>
+                            </button>
                         </CardFooter>
                     </div>
                 </div>
