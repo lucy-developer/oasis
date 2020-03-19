@@ -1,5 +1,5 @@
 import { action, observable, runInAction } from 'mobx';
-import api from '../../utils/api.js_';
+import api from '../../utils/api';
 
 class DashboardStore {
     @observable teamData = {};

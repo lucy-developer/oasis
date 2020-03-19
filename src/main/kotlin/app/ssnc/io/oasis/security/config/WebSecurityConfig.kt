@@ -20,7 +20,11 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
+import java.util.*
 
 
 @Configuration
@@ -72,6 +76,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity): Unit = with(http) {
         csrf().disable()
+        cors().configurationSource(corsConfigurationSource())
 
         sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
@@ -130,18 +135,18 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
 //        }
 //    }
 //
-//    @Bean
-//    fun corsConfigurationSource(): CorsConfigurationSource {
-//        val configuration = CorsConfiguration()
-//        configuration.allowedOrigins = Arrays.asList("http://dredear.nolit.net", "http://localhost:4080")
-//        configuration.allowedMethods = Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE")
-//        configuration.allowedHeaders = Arrays.asList("*")
-//        configuration.allowCredentials = true
-//        configuration.maxAge = 3600
-//        val source = UrlBasedCorsConfigurationSource()
-//        source.registerCorsConfiguration("/**", configuration)
-//        return source
-//    }
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val configuration = CorsConfiguration()
+        configuration.allowedOrigins = Arrays.asList("*")
+        configuration.allowedMethods = Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS")
+        configuration.allowedHeaders = Arrays.asList("*")
+        configuration.allowCredentials = true
+        configuration.maxAge = 3600
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", configuration)
+        return source
+    }
 
     //static 리소스 처리
     fun addResourceHandlers(registry: ResourceHandlerRegistry) {

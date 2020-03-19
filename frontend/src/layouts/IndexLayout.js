@@ -15,7 +15,7 @@ class IndexLayout extends React.Component {
             if (prop.layout === '/index') {
                 return (
                     <Route
-                        paths={prop.layout + prop.paths}
+                        path={prop.layout + prop.path}
                         render={props => <prop.component onUpdate={onUpdate} {...props} />}
                         key={key}
                     />
@@ -28,7 +28,7 @@ class IndexLayout extends React.Component {
     render() {
         return (
             <>
-                {/*<IndexHeader />*/}
+                <IndexHeader />
                 <Switch>{this.getRoutes(routes())}</Switch>
             </>
         );

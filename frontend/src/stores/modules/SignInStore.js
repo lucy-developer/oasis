@@ -1,6 +1,7 @@
 import { action, observable, runInAction } from 'mobx';
-import qs from 'qs';
-import api from '../../utils/api';
+// import ApiClient from 'lfin-apiclient-module';
+// import api from '../../utils/api';
+import api from '../../api/config';
 
 class SignInStore {
     @observable loginName = '';
@@ -25,22 +26,14 @@ class SignInStore {
     @action
     signIn = async () => {
         this.root.toggleLoading();
-        //const signIn = this.api.login();
         const params = ({
             email: this.loginName, password: this.password, admin_yn: "Y"
         });
-        const { data } = await api.post('/api/v1/auth/login', params, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }
-        );
-
+        const { data } = await api.user.signin(params);
         runInAction(() => {
             this.root.toggleLoading();
         });
         await localStorage.setItem('jwtToken', data.access_token);
-        await this.root.setAuthToken();
     };
 }
 

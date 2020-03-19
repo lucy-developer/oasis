@@ -16,7 +16,8 @@ class SidebarWithoutLayout extends React.Component {
             if (prop.layout === '/auth') {
                 return (
                     <Route
-                        path={prop.layout + prop.path}
+                        // path={prop.layout + prop.path}
+                        path={prop.layout}
                         render={props => <prop.component onUpdate={onUpdate} {...props} />}
                         key={key}
                     />

@@ -1,6 +1,6 @@
 import { action, observable, runInAction } from 'mobx';
 import jwt from 'jsonwebtoken';
-import api from '../../utils/api.js_';
+import api from '../../utils/api';
 
 class MyPageStore {
     @observable toggle = false;
@@ -147,32 +147,67 @@ class MyPageStore {
         });
     };
 
-    @action identities = async () => {
+    @action identities = async (userId) => {
+        this.root.toggleLoading();
+        let identityId;
+        if (localStorage.getItem('jwtToken')) {
+            identityId = jwt.decode(localStorage.getItem('jwtToken')).sub;
+        }
+        const params = ({id: identityId, key: "ID"});
+
+        const {data} = await api.post('/api/v1/user/search', params, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        runInAction(() => {
+            this.root.toggleLoading();
+        });
+        this.data = data;
+        this.dept = data.dept;
+        this.id = data.email;
+        this.role = data.roles[0].name;
+        this.name = data.username;
+        this.phone = data.mobile;
+        this.email = data.email;
+    };
+
+    // @action identities = async () => {
+    //     this.root.toggleLoading();
+    //     let identityId;
+    //     if (localStorage.getItem('jwtToken')) {
+    //         identityId = jwt.decode(localStorage.getItem('jwtToken')).identityId;
+    //         // eslint-disable-next-line no-console
+    //         console.log(identityId);
+    //     }
+    //     const params = ({
+    //         email: this.loginName, password: this.password, admin_yn: "Y"
+    //     });
+    //     const { data } = await api.get('/api/v1/auth/login', params, {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         }
+    //     );
+    //     // runInAction(() => {
+    //     //     this.root.toggleLoading();
+    //     // });
+    //     // this.data = data;
+    //     // this.companyName = data.company.name;
+    //     // this.id = data.identity.loginName;
+    //     // this.role = data.identity.role;
+    //     // this.name = data.name;
+    //     // this.phone = data.cellphone;
+    //     // this.email = data.email;
+    // };
+
+    @action edit = async () => {
         this.root.toggleLoading();
         let identityId;
         if (localStorage.getItem('jwtToken')) {
             identityId = jwt.decode(localStorage.getItem('jwtToken')).identityId;
         }
-        //const users = this.api.users();
-        // const { data } = await api.identity({ identityId, params: {} });
-        // runInAction(() => {
-        //     this.root.toggleLoading();
-        // });
-        // this.data = data;
-        // this.companyName = data.company.name;
-        // this.id = data.identity.loginName;
-        // this.role = data.identity.role;
-        // this.name = data.name;
-        // this.phone = data.cellphone;
-        // this.email = data.email;
-    };
-
-    @action edit = async () => {
-        this.root.toggleLoading();
-        let identityId;
-        // if (localStorage.getItem('jwtToken')) {
-        //     identityId = jwt.decode(localStorage.getItem('jwtToken')).identityId;
-        // }
         // //const users = this.api.users();
         // let userIdentity = { name: this.name, email: this.email, cellphone: this.phone, password: this.password };
         // if (this.newPassword !== '') {
@@ -182,10 +217,10 @@ class MyPageStore {
         //     };
         // }
         // await api.edit({ identityId, params: { userIdentity } });
-        // runInAction(() => {
-        //     this.root.toggleLoading();
-        // });
-        // this.password = '';
+        runInAction(() => {
+            this.root.toggleLoading();
+        });
+        this.password = '';
     };
 }
 
