@@ -2,6 +2,7 @@ package app.ssnc.io.oasis.entity.request
 
 import app.ssnc.io.oasis.entity.model.enum.Protocol
 import app.ssnc.io.oasis.entity.model.enum.RuleActions
+import org.springframework.web.bind.annotation.PathVariable
 import java.time.LocalDate
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
@@ -10,6 +11,11 @@ data class LoginRequest (
     val email: String,
     val password: String,
     val admin_yn: String
+)
+
+data class SearchUserRequest(
+    var key: String,
+    var id: String
 )
 
 data class SearchRuleRequest (
