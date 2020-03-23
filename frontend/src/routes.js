@@ -2,6 +2,7 @@ import commuteImage from './assets/img/icon_commute.png';
 import clientImage from './assets/img/icon_client.png';
 import ClientManagement from './pages/ClientManagement';
 import CommuteByStaff from './pages/CommuteByStaff';
+import FirewallRequest from './pages/FirewallRequest';
 //import CommuteByTeam from './pages/CommuteByTeam';
 
 export default function getRoutes() {
@@ -59,6 +60,21 @@ export default function getRoutes() {
                         name: '고객사 관리',
                         mini: '·',
                         component: ClientManagement,
+                        layout: '/admin',
+                    },
+                ],
+            },
+            {
+                collapse: true,
+                name: '방화벽',
+                icon: clientImage,
+                state: 'clientCollapse',
+                views: [
+                    {
+                        path: '/firewall-request',
+                        name: '방화벽 신청',
+                        mini: '·',
+                        component: FirewallRequest,
                         layout: '/admin',
                     },
                 ],

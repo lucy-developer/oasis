@@ -13,15 +13,15 @@ class ClientManagement extends Component {
         const { clientManagementStore, onUpdate, history } = this.props;
         document.title = '아임히어-Work. Web Admin - 고객사 > 고객사 관리';
         onUpdate();
-        try {
-            await clientManagementStore.search();
-            await clientManagementStore.teamStatus();
-        } catch (e) {
-            if (e.status === 401) {
-                clientManagementStore.root.isLoading = false;
-                history.push('/auth/login');
-            }
-        }
+        // try {
+        //     await clientManagementStore.search();
+        //     await clientManagementStore.teamStatus();
+        // } catch (e) {
+        //     if (e.status === 401) {
+        //         clientManagementStore.root.isLoading = false;
+        //         history.push('/auth/login');
+        //     }
+        // }
     }
 
     render() {

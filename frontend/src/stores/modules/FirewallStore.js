@@ -2,12 +2,12 @@ import { action, observable, runInAction } from 'mobx';
 import moment from 'moment';
 import api from '../../utils/api';
 
-class ClientManagementStore {
+class FirewallStore {
     @observable clientName = '';
 
     @observable staffName = '';
 
-    @observable teamId = { id: '', label: '전체' };
+    // @observable teamId = { id: '', label: '전체' };
 
     @observable prevDate = moment()
         .subtract(7, 'days')
@@ -43,12 +43,35 @@ class ClientManagementStore {
 
     @observable detailClientData = {};
 
+    @observable rows = 1;
+
+    @observable qdata = {
+        src_type: '',
+        src_ip: '',
+        dst_type: '',
+        dst_ip: '',
+        protocol: ''
+
+    };
+
+    @observable addressTypeId = { id: 'IPv4', label: 'IPv4' };
+
+    @observable addressType = [
+        { id: 'IPv4', label: 'IPv4' },
+        { id: 'FQDN', label: 'FQDN' },
+        { id: 'USER', label: 'USER' },
+        { id: 'USERGROUP', label: 'USERGROUP' } ];
+
+    @observable protocolTypeId = { id: 'TCP', label: 'TCP' };
+
+    @observable protocolType = [
+        { id: 'TCP', label: 'TCP' },
+        { id: 'UDP', label: 'UDP' },
+        { id: 'ICMP', label: 'ICMP' },
+        { id: 'IP', label: 'IP' } ];
+
     constructor(root) {
         this.root = root;
-        // this.api = new ApiClient({
-        //     adapter: 'axios',
-        //     authToken: localStorage.getItem('jwtToken'),
-        // });
     }
 
     @action handleChange = e => {
@@ -56,7 +79,7 @@ class ClientManagementStore {
     };
 
     @action handleSelectChange = e => {
-        this.teamId = {
+        this.addressTypeId = {
             id: e.value,
             label: e.label,
         };
@@ -279,6 +302,10 @@ class ClientManagementStore {
         this.detailInfoModal = false;
         this.toggleAlertModal('수정이 완료되었습니다.');
     };
+
+    @action handleRowsChange = value => {
+        this.rows = value;
+    };
 }
 
-export default ClientManagementStore;
+export default FirewallStore;
