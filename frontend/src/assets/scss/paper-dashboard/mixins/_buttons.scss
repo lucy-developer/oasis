@@ -13,7 +13,7 @@
     .show > &.dropdown-toggle,
     .show > &.dropdown-toggle:focus,
     .show > &.dropdown-toggle:hover {
-        background-color: $btn-states-color !important;
+        background-color: #1e7fba !important; //$btn-states-color
         color: $white-color !important;
         box-shadow: none !important;
     }
