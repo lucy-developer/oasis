@@ -6,6 +6,7 @@ import MyPageStore from './modules/MyPageStore';
 import CommuteByStaffStore from './modules/CommuteByStaffStore';
 import CommuteByTeamStore from './modules/CommuteByTeamStore';
 import CompanyStore from './modules/CompanyStore';
+import FirewallStore from './modules/FirewallStore';
 
 class RootStore {
     @observable isLoading = false;
@@ -18,6 +19,7 @@ class RootStore {
         this.commuteByStaffStore = new CommuteByStaffStore(this);
         this.commuteByTeamStore = new CommuteByTeamStore(this);
         this.companyStore = new CompanyStore(this);
+        this.firewallStore = new FirewallStore(this);
     }
 
     setAuthToken = () => {
