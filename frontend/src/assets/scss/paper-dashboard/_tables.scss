@@ -46,10 +46,11 @@
     }
 
    > thead > tr > th{
-       font-size: 14px;
+       font-size: 16px;
        font-weight: $font-weight-bold;
        padding-bottom: 0;
        text-transform: uppercase;
+       font-family: NotoSansCJKkr;
        border: 0;
    }
 
@@ -106,6 +107,7 @@
 
     > tbody > tr{
         position: relative;
+        background-color: #ffffff;
     }
 }
 
@@ -160,7 +162,7 @@
 }
 
 .table-responsive{
-  overflow: scroll;
+  //overflow: scroll;
   padding-bottom: 10px;
 }
 

@@ -77,7 +77,11 @@
   padding-top: 6rem;
 
   h3 {
-    margin-left: 2rem;
+    //margin-left: 2rem;
+    margin-bottom: 0px;
+    font-family: NotoSansCJKkr;
+    font-size: 24px;
+    letter-spacing: -0.48px;
   }
 
 }
@@ -129,8 +133,8 @@
 }
 
 .body-card {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important;
+  /*padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;*/
 
   .page-label {
     padding: 5px 5px !important;
@@ -159,8 +163,11 @@
   .table-body {
     margin-top: 1rem;
     th {
-      background-color: $default-color;
-      color: #ffffff;
+      /*background-color: $default-color;
+      color: #ffffff;*/
+      color: #616b72;
+      height: 40px;
+      background-color: #eef1f3;
     }
     td {
       a {
@@ -267,7 +274,7 @@
 }
 
 .table-header {
-  border: 1px solid darken($default-color, 10%);
+  //border: 1px solid darken($default-color, 10%);
 }
 
 .loader-page {
