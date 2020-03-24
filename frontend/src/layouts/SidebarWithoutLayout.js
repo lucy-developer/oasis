@@ -28,6 +28,10 @@ class SidebarWithoutLayout extends React.Component {
     };
 
     render() {
+        const fullPage = {
+            width: "60%",
+            float: "right"
+        };
         return (
             <>
                 <SidebarWithoutHeader />
@@ -37,11 +41,11 @@ class SidebarWithoutLayout extends React.Component {
                         this.mainPanel = ref;
                     }}
                 >
-                    <div className="full-page section-image">
+                    <div className="full-page section-image" style={fullPage}>
                         <Switch>{this.getRoutes(routes())}</Switch>
-                        <SidebarWithoutFooter fluid />
                     </div>
                 </div>
+                <SidebarWithoutFooter fluid />
             </>
         );
     }

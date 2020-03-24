@@ -12,8 +12,14 @@ class Index extends Component {
 
     render() {
         const { history } = this.props;
+
+        const indexLayout = {
+            backgroundImage: `url(${backgroundImage})`,
+            width: "60%",
+            float: "right"
+        };
         return (
-            <div className="index-layout" style={{ backgroundImage: `url(${backgroundImage})` }}>
+            <div className="index-layout" style={indexLayout}>
                 <div className="index-margin">
                     <Container>
                         <p style={{ fontSize: '24px', lineHeight: '29px' }}>위치인증 솔루션 NO.1 엘핀</p>
