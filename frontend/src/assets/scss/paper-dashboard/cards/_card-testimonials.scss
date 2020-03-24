@@ -37,6 +37,7 @@
             border-radius: 50%;
             width: 100px;
             height: 100px;
+            background-attachment: fixed;
         }
     }
 
@@ -54,6 +55,7 @@
                 border-radius: 50%;
                 width: 60px;
                 height: 60px;
+                background-attachment: fixed;
             }
         }
     }
@@ -65,10 +67,16 @@
     & .card-image{
         .img{
             border-radius: $border-radius-extreme;
+            background-attachment: fixed;
+            position: fixed;
         }
 
         .card-title{
             text-align: center;
         }
     }
+}
+
+.imgBtn{
+    padding-bottom: 18px;
 }

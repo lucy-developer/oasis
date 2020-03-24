@@ -41,6 +41,7 @@ class FirewallRow extends Component {
 
     render() {
         const { store } = this.props;
+
         return (
             <tr className="text-center">
                 <td>
@@ -75,13 +76,14 @@ class FirewallRow extends Component {
                     />
                 </td>
                 <td>
-                    <CustomInput name="port" handleChange={e=> store.handleChange(e, 'port', 'TEXT')} />
+                    <CustomInput name="port" className="inputPort" handleChange={e=> store.handleChange(e, 'port', 'TEXT')} />
                 </td>
                 <td>
                     <CustomSelect
                         name="protocolType"
                         value={store.ruleAction}
                         data={store.ruleActionType}
+                        style={{ width: "150px" }}
                         handleChange={e=> store.handleChange(e, 'ruleAction', 'TYPE')}
                     />
                 </td>
