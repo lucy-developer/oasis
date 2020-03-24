@@ -1,6 +1,7 @@
 import { action, observable, runInAction } from 'mobx';
 import moment from 'moment';
-import api from '../../utils/api';
+// import api from '../../utils/api';
+import api from '../../api/config';
 
 class FirewallStore {
     @observable clientName = '';
@@ -42,23 +43,25 @@ class FirewallStore {
     //request data
     @observable srcIP = '';
 
-    @observable srcType = '';
+    @observable srcType = { id: 'IPv4', label: 'IPv4' };
 
     @observable dstIP = '';
 
-    @observable dstType = '';
+    @observable dstType = { id: 'IPv4', label: 'IPv4' };
 
-    @observable protocol = '';
+    @observable protocol = { id: 'TCP', label: 'TCP' };
 
     @observable port = '';
 
-    @observable ruleAction = '';
+    @observable ruleAction = { id: 'ALLOW', label: 'ALLOW' };;
 
     @observable startDate = moment()
         .subtract(7, 'days')
         .format('YYYY-MM-DD');
 
     @observable endDate = moment().format('YYYY-MM-DD');
+
+    @observable comment = '';
 
     @observable qdata = {
         src_type: '',
@@ -334,7 +337,7 @@ class FirewallStore {
 
     @action handleQsetPush = value => {
         this.qdata.push(value)
-    }
+    };
 
     @action  handleChange = (event, stateName, type, stateNameEqualTo) => {
         switch(type) {
@@ -355,7 +358,10 @@ class FirewallStore {
                 //     this[`${stateName}Text`] = '올바른 이메일 주소를 입력하세요.';
                 // }
                 //this[stateName] = event.target.value;
-                this[stateName] = { id: event.value, label: event.label};
+                this[stateName] = {
+                    id: event.value,
+                    label: event.label,
+                };
                 break;
             case 'TEXT':
                 this[stateName] = event.target.value;
@@ -363,8 +369,28 @@ class FirewallStore {
             default:
                 break;
         }
-
     };
+
+    @action handleFireRuleCheck = async () => {
+        this.root.toggleLoading();
+        const params = ({
+            src_type: this.srcType.id,
+            src_address: this.srcIP,
+            dest_type: this.dstType.id,
+            dest_address: this.dstIP,
+            protocol: this.protocol.id,
+            port: this.port,
+            rule_action: this.ruleAction.id,
+            start_date: this.startDate,
+            end_date: this.endDate,
+            comment: this.comment,
+            status: '1'
+        });
+        const { data } = await api.firewall.checkRule(params);
+        runInAction(() => {
+            this.root.toggleLoading();
+        });
+    }
 }
 
 export default FirewallStore;

@@ -10,4 +10,7 @@ export default {
     products: {
         all: () => '/products.json',
     },
+    firewalls: {
+        checkRule: () => 'v1/firewall/search',
+    }
 };
