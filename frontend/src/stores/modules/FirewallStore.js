@@ -9,12 +9,6 @@ class FirewallStore {
 
     // @observable teamId = { id: '', label: '전체' };
 
-    @observable prevDate = moment()
-        .subtract(7, 'days')
-        .format('YYYY-MM-DD');
-
-    @observable endDate = moment().format('YYYY-MM-DD');
-
     @observable page = 1;
 
     @observable size = 10;
@@ -45,13 +39,38 @@ class FirewallStore {
 
     @observable rows = 1;
 
+    //request data
+    @observable srcIP = '';
+
+    @observable srcType = '';
+
+    @observable dstIP = '';
+
+    @observable dstType = '';
+
+    @observable protocol = '';
+
+    @observable port = '';
+
+    @observable ruleAction = '';
+
+    @observable startDate = moment()
+        .subtract(7, 'days')
+        .format('YYYY-MM-DD');
+
+    @observable endDate = moment().format('YYYY-MM-DD');
+
     @observable qdata = {
         src_type: '',
-        src_ip: '',
-        dst_type: '',
-        dst_ip: '',
-        protocol: ''
-
+        src_address: '',
+        dest_type: '',
+        dest_address: '',
+        protocol: '',
+        port: '',
+        rule_action: '',
+        start_date: '',
+        end_date: '',
+        comment: '',
     };
 
     @observable addressTypeId = { id: 'IPv4', label: 'IPv4' };
@@ -70,6 +89,12 @@ class FirewallStore {
         { id: 'ICMP', label: 'ICMP' },
         { id: 'IP', label: 'IP' } ];
 
+    @observable ruleActionTypeId = { id: 'ALLOW', label: 'ALLOW' };
+
+    @observable ruleActionType = [
+        { id: 'ALLOW', label: 'ALLOW' },
+        { id: 'DENY', label: 'DENY' }, ];
+
     constructor(root) {
         this.root = root;
     }
@@ -86,7 +111,7 @@ class FirewallStore {
     };
 
     @action handlePrevDateChange = e => {
-        this.prevDate = moment(e, 'YYYY-MM-DD').format('YYYY-MM-DD');
+        this.startDate = moment(e, 'YYYY-MM-DD').format('YYYY-MM-DD');
     };
 
     @action handleEndDateChange = e => {
@@ -305,6 +330,40 @@ class FirewallStore {
 
     @action handleRowsChange = value => {
         this.rows = value;
+    };
+
+    @action handleQsetPush = value => {
+        this.qdata.push(value)
+    }
+
+    @action  handleChange = (event, stateName, type, stateNameEqualTo) => {
+        switch(type) {
+            case 'IP':
+                // if (this.verifyEmail(event.target.value)) {
+                //     this[`${stateName}State`] = 'has-success';
+                // } else {
+                //     this[`${stateName}State`] = 'has-danger';
+                //     this[`${stateName}Text`] = '올바른 이메일 주소를 입력하세요.';
+                // }
+                this[stateName] = event.target.value;
+                break;
+            case 'TYPE':
+                // if (this.verifyEmail(event.target.value)) {
+                //     this[`${stateName}State`] = 'has-success';
+                // } else {
+                //     this[`${stateName}State`] = 'has-danger';
+                //     this[`${stateName}Text`] = '올바른 이메일 주소를 입력하세요.';
+                // }
+                //this[stateName] = event.target.value;
+                this[stateName] = { id: event.value, label: event.label};
+                break;
+            case 'TEXT':
+                this[stateName] = event.target.value;
+                break;
+            default:
+                break;
+        }
+
     };
 }
 

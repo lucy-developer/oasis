@@ -6,11 +6,9 @@ class CustomInput extends Component {
         const {title, name, value, handleChange, disable} = this.props;
         return (
             <>
-                {/*<Col md="4" xs="8">*/}
-                    <FormGroup>
-                        <Input readOnly={disable} name={name} type="text" value={value} onChange={handleChange} />
-                    </FormGroup>
-                {/*</Col>*/}
+                <FormGroup>
+                    <Input name={name} type="text" value={value} onChange={handleChange} />
+                </FormGroup>
             </>
         )
     }
