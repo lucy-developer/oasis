@@ -51,9 +51,9 @@ class CustomDate extends Component {
                                         await handleEndDateChange(e);
                                     }}
                                     locale="ko"
-                                    isValidDate={current => {
-                                        return yesterday ? current.isBefore(moment().subtract(1, 'days')) : current.isBefore(moment());
-                                    }}
+                                    // isValidDate={current => {
+                                    //     return yesterday ? current.isBefore(moment().subtract(1, 'days')) : current.isBefore(moment());
+                                    // }}
                                     timeFormat={false}
                                     closeOnSelect
                                 />

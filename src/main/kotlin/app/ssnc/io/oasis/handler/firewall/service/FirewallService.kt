@@ -1,6 +1,8 @@
 package app.ssnc.io.oasis.handler.firewall.service
 
 import app.ssnc.io.oasis.entity.model.Task
+import app.ssnc.io.oasis.entity.model.TaskAssign
+import app.ssnc.io.oasis.entity.model.enum.AssignStatus
 import app.ssnc.io.oasis.entity.request.FirewallRequest
 import app.ssnc.io.oasis.entity.request.SearchRuleRequest
 import app.ssnc.io.oasis.exception.HandleConstraintViolationException
@@ -13,7 +15,6 @@ import app.ssnc.io.oasis.util.DateUtil
 import app.ssnc.io.oasis.util.wallbrain.WallBrainRestApiClient
 import app.ssnc.io.oasis.util.web.RestClient
 import com.sds.wallbrain.base.FirewallRuleSessionInfoVo
-import com.sds.wallbrain.base.RuleSetGroupInfoVo
 import mu.KLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -44,7 +45,7 @@ class FirewallService(
     private lateinit var userService: UserService
 
     @Throws(UniquenessFieldException::class, HandleConstraintViolationException::class)
-    fun searchRule(request: SearchRuleRequest) {
+    fun searchRule(request: SearchRuleRequest): Any? {
         //val rule = HashMap<String, String>()
         val searchRule = SearchRuleReq(
             srcAddr = request.src_address,
@@ -58,13 +59,26 @@ class FirewallService(
 
         val results: Array<FirewallRuleSessionInfoVo> = wallBrainRestApiClient.searchRuleSetGroup("/provision/rule/search", searchRule)
 
+        val data = HashMap<String, String>()
         for (result in results ) {
-            if (result.resultStatus == "allowed")
-                throw UniquenessFieldException("방화벽 중복 등록 요청")
+            if (result.resultStatus == "allowed") {
+                data["check"] = "ERROR"
+                data["duplication"] = "Y"
+                data["message"] = "방화벽 요청 중복"
+                return data
+            }
 
-            if (result.isCompliance)
-                throw HandleConstraintViolationException(result.complianceComment)
+            if (result.isCompliance) {
+                data["check"] = "ERROR"
+                data["compliance"] = "Y"
+                data["message"] = result.complianceComment
+                return data
+            }
         }
+        data["check"] = "SUCCESS"
+        return data
+
+        //return ResultResponse.success(data)
     }
 
     fun approvalFirewall(request: FirewallRequest) {
@@ -72,14 +86,21 @@ class FirewallService(
             val task = Task(
                 projectSeq = project.id!!, title = "방화벽 신청",
                 key = taskService.generationKey(project.id!!),
-                creator = userService.findById(request.creator).get(),
-                details = request.rules
+                creator = userService.findById(request.creator).get()
+//                ,details = request.rules
             )
             taskService.createTask(task)
+
+            request.assigns.forEach { assign ->
+                val taskAssign = TaskAssign(projectSeq = project.id!!,
+                    orderNo = assign.order, status = AssignStatus.PENDING,
+                    assign = userService.findByEmail(assign.user_id)!!)
+                taskService.createTaskAssigns(taskAssign)
+            }
+
         }. run {
             throw ResourceNotFoundException("Project not found")
         }
-
     }
 
 

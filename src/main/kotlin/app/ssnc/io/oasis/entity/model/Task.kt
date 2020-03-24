@@ -1,6 +1,7 @@
 package app.ssnc.io.oasis.entity.model
 
 import app.ssnc.io.oasis.entity.model.common.Auditable
+import app.ssnc.io.oasis.entity.model.enum.AssignStatus
 import app.ssnc.io.oasis.entity.model.enum.AuditStatus
 import app.ssnc.io.oasis.entity.request.SearchRuleRequest
 import app.ssnc.io.oasis.util.Extension.equalsBuilder
@@ -30,7 +31,7 @@ data class Task(
     @GeneratedValue(generator = TASK_GENERATOR)
     var id: Long? = null,
 
-    @Column(name = "key")
+    @Column(name = "key", unique = true, nullable = false)
     val key: String,
 
     @Column(name = "project_seq")
@@ -45,11 +46,11 @@ data class Task(
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "creator_id", unique = false, nullable = false, insertable = true, updatable = true)
-    var creator: User,
+    var creator: User
 
-    @Type(type = "jsonb")
-    @Column(name = "details", columnDefinition = "jsonb")
-    var details: MutableSet<SearchRuleRequest> = mutableSetOf()
+//    @Type(type = "jsonb")
+//    @Column(name = "details", columnDefinition = "jsonb")
+//    var details: MutableList<SearchRuleRequest> = mutableSetOf()
 
 //    @Column(name = "target_id", nullable = false)
 //    var targetId: Long? = null
@@ -83,20 +84,23 @@ data class Task(
 @DynamicUpdate
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-data class TaskAssign (
+data class TaskAssign(
     @Id
-    @SequenceGenerator(name = TASK_ASSIGN_GENERATOR, sequenceName = "TASK_ASSIGN_SEQ", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(generator = TASK_ASSIGN_GENERATOR)
+//    @SequenceGenerator(name = TASK_ASSIGN_GENERATOR, sequenceName = "TASK_ASSIGN_SEQ", initialValue = 1, allocationSize = 1)
+//    @GeneratedValue(generator = TASK_ASSIGN_GENERATOR)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     var id: Long? = null,
 
     @Column(name = "project_seq")
     var projectSeq: Long,
 
-    @Column(name = "order")
-    var order: Long,
+    @Column(name = "order_no")
+    var orderNo: Int?,
 
+    @Enumerated(EnumType.STRING)
     @Column( name = "status", unique = false, nullable = false, insertable = true, updatable = true)
-    var status: String,
+    var status: AssignStatus = AssignStatus.PENDING,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "creator_id", unique = false, nullable = false, insertable = true, updatable = true)
@@ -107,16 +111,16 @@ data class TaskAssign (
     override fun toString() =
         toStringBuilder(
             TaskAssign::projectSeq,
-            TaskAssign::order
+            TaskAssign::orderNo
         )
 
     override fun equals(other: Any?): Boolean =
         equalsBuilder(
             other,
             TaskAssign::projectSeq,
-            TaskAssign::order
+            TaskAssign::orderNo
         )
 
     override fun hashCode(): Int =
-        Objects.hash(projectSeq, order)
+        Objects.hash(projectSeq, orderNo)
 }

@@ -6,6 +6,7 @@ import ApllyForm from "../common/ApplyForm";
 import FirewallRequestTableBody from "./FirewallRequestTableBody";
 import plus from '../../assets/img/button_plus.png';
 import '../../assets/scss/FirewallRequest.scss';
+import AssignedForm from "./AssignedForm";
 
 @observer
 class FirewallRequestBodyCard extends Component {
@@ -18,7 +19,6 @@ class FirewallRequestBodyCard extends Component {
         const { store } = this.props;
         // eslint-disable-next-line radix
         store.handleRowsChange(parseInt(store.rows)+1);
-        // Fill the cells in the row with empty cell data
     };
 
     removeRow = () => {
@@ -26,13 +26,6 @@ class FirewallRequestBodyCard extends Component {
         if (store.rows > 1) {
             // eslint-disable-next-line radix
             store.handleRowsChange(parseInt(store.rows) - 1);
-
-            // this.state.qset.items[0].items.pop();
-            //
-            // // Also remove the row from refsArray
-            // const arr = this.refsArray.slice(0);
-            // arr.splice(rowsValue, 1);
-            // this.refsArray = arr;
         }
     };
 
@@ -60,7 +53,7 @@ class FirewallRequestBodyCard extends Component {
                                <Table className="custom-table custom-table-clickable" bordered striped responsive>
                                    <TableHeaders tableHeader={tableHeader} />
                                    <tbody>
-                                   <FirewallRequestTableBody store={store} />
+                                   <FirewallRequestTableBody store={store} removeRow={this.removeRow} />
                                    </tbody>
                                </Table>
                                {/*<ApllyForm />*/}
@@ -81,8 +74,23 @@ class FirewallRequestBodyCard extends Component {
                            </Button>
                        </div>
                    </CardBody>
+                   <CardBody className="body-card">
+                       <AssignedForm store={store} />
+                   </CardBody>
                </Card>
-
+               <div className="modal-footer">
+                   <div className="left-side">
+                       <Button className="btn-link" type="button" onClick={store.toggleDetailInfoModal}>
+                           취소
+                       </Button>
+                   </div>
+                   <div className="divider" />
+                   <div className="right-side">
+                       <Button className="btn-link" color="default" type="button" onClick={store.detailMeetingEdit}>
+                           요청
+                       </Button>
+                   </div>
+               </div>
            </div>
        )
    }
