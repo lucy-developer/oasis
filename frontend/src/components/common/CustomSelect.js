@@ -7,9 +7,7 @@ import { observer } from 'mobx-react';
 class CustomSelect extends Component {
     render() {
         const {name, data, value, handleChange, disable } = this.props;
-        const firewallSelect = {
-            width:'100px'
-        };
+
         return (
             <>
                 <Col md="4" xs="8">
@@ -20,7 +18,6 @@ class CustomSelect extends Component {
                             isDisabled={disable}
                             name={name}
                             value={value}
-                            style={firewallSelect}
                             onChange={handleChange}
                             placeholder=""
                             // options={data}

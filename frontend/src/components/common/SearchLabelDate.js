@@ -6,6 +6,13 @@ import moment from 'moment';
 class SearchLabelDate extends Component {
     render() {
         const { title, prevDate, endDate, handlePrevDateChange, handleEndDateChange, yesterday } = this.props;
+
+        const dateLabel = {
+            paddingLeft: "0px",
+            paddingRight: "0px",
+            flex: "0"
+        };
+
         return (
             <>
                 <Label md="2" xs="4" className="search-label">
@@ -36,7 +43,7 @@ class SearchLabelDate extends Component {
                                 />
                             </FormGroup>
                         </Col>
-                        <Label xs="2" className="search-label text-center datetime-custom-center">
+                        <Label xs="2" className="search-label text-center datetime-custom-center" style={dateLabel}>
                             ~
                         </Label>
                         <Col xs="5" className="datetime-custom-right">

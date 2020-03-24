@@ -76,7 +76,6 @@
         z-index: 1029;
         border-bottom: $default-color 1px solid;
     }
-
     .documentation &{
         &.fixed-top{
             left: 0;
@@ -308,4 +307,18 @@
 
 .bg-white{
     background-color: $white-color !important;
+}
+
+.indexNav {
+  width: 40%;
+  height: 90vh;
+  padding: 0;
+  margin: 0px;
+  padding-bottom: 0px;
+  border: 0px;
+}
+
+.indexNavDiv {
+  padding-left: 30%;
+  padding-right: 10%;
 }

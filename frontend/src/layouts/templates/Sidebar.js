@@ -4,7 +4,7 @@ import { Col, Nav, Collapse, Label, Row } from 'reactstrap';
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from 'perfect-scrollbar';
 
-import logo from '../../assets/img/logo_w.png';
+import logo from '../../assets/img/oasis_logo.png';
 
 let ps;
 
@@ -141,15 +141,15 @@ class Sidebar extends React.Component {
     render() {
         const { bgColor, activeColor, routes } = this.props;
         return (
-            <div className="sidebar" data-color={bgColor} data-active-color={activeColor}>
+            <div className="sidebar" data-color={bgColor} data-active-color={activeColor} style={{ boxShadow: "2px 0 20px 0 rgba(0, 0, 0, 0.2)" }}>
                 <div className="logo text-center">
                     <NavLink
                         to={localStorage.getItem('userRole') === 'STAFF' ? '/admin/commute/staff/' : '/admin/dashboard'}
                         className="simple-text logo-normal"
                         // style={{ position: 'relative', left: '-33px', height: '49px' }}
-                        style={{ position: 'relative', height: '49px' }}
+                        style={{ position: 'relative', height: 'auto' }}
                     >
-                        <img className="custom-logo" src={logo} alt="logo" />
+                        <img className="custom-logo" src={logo} alt="logo" style={{ width: "124px" }} />
                     </NavLink>
                 </div>
                 <div

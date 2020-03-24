@@ -38,7 +38,7 @@
     &.btn-icon {
         // see above for color variations
         height: $btn-icon-size-regular;
-        min-width: $btn-icon-size-regular;
+        /*min-width: $btn-icon-size-regular;*/
         width: $btn-icon-size-regular;
         padding: 0;
         font-size: $btn-icon-font-size-regular;
@@ -51,9 +51,14 @@
         }
 
         &.btn-sm{
-            height: $btn-icon-size-small;
+            /*height: $btn-icon-size-small;
             min-width: $btn-icon-size-small;
-            width: $btn-icon-size-small;
+            width: $btn-icon-size-small;*/
+            width: 28px;
+            height: 28px;
+            border: solid 1px #e0e0e0;
+            background-color: #ffffff;
+            color: #000000;
 
             .fa,
             .far,
@@ -99,7 +104,14 @@
     }
 }
 
-
+.firewallBtn{
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px 0 rgba(56, 66, 72, 0.2);
+    background-color: #ffffff;
+    width: 100%;
+    height: 35px;
+    color: #000000;
+}
 
 // Apply the mixin to the buttons
 // .btn-default { @include btn-styles($default-color, $default-states-color); }

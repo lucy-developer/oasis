@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavbarBrand, Navbar, Container } from 'reactstrap';
-import logo from '../../assets/img/oasis_logo.png';
+import logo from '../../assets/img/oasis_logo_login.png';
 
 class IndexHeader extends React.Component {
     render() {
@@ -14,8 +14,8 @@ class IndexHeader extends React.Component {
         };
 
         const indexNavDiv = {
-            height: "100%"
-            /*backgroundColor: "#f3f6f8"*/
+            height: "100%",
+            paddingLeft: "50%"
         };
 
         return (
@@ -24,7 +24,7 @@ class IndexHeader extends React.Component {
                     <Container>
                         <div style={indexNavDiv}>
                             <NavbarBrand href="/">
-                                <img width="160" src={logo} alt="logo" />
+                                <img width="auto" src={logo} alt="logo" style={{ backgroundAttachment: "fixed", position: "fixed" }} />
                             </NavbarBrand>
                         </div>
                     </Container>

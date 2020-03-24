@@ -12,27 +12,10 @@ class SidebarWithoutHeader extends React.Component {
     }
 
     render() {
-        const indexNav = {
-            width: "40%",
-            height: "90vh",
-            padding: "0",
-            margin: "0px",
-            paddingBottom: "0px",
-            border: "0px"
-        };
-
-        const indexNavContainer = {
-            height: "100%",
-            backgroundColor: "#f3f6f8"
-        };
-
-        const indexNavDiv = {
-            marginLeft: "50%"
-        };
         return (
-            <Navbar style={indexNav} className={classnames('navbar-absolute fixed-top navbar-transparent')} expand="lg">
-                <Container style={indexNavContainer}>
-                    <div className="navbar-wrapper" style={indexNavDiv}>
+            <Navbar className={classnames('navbar-absolute fixed-top navbar-transparent indexNav')} expand="lg" style={{ width: "40%" }}>
+                <Container className="indexNavContainer indexNav" style={{ width: "100%" }}>
+                    <div className="navbar-wrapper indexNavDiv">
                         <NavbarBrand />
                         <NavLink to="/index" className="nav-link">
                             <img className="custom-logo" src={logo} alt="logo" />

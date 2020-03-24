@@ -279,6 +279,11 @@
       }
     }
 }
+
+.form-group .inputPort{
+  width: 70px;
+}
+
 .input-group[disabled]{
     .input-group-prepend .input-group-text,
     .input-group-append .input-group-text{
@@ -399,3 +404,33 @@ textarea.form-control{
         margin-top: 6px;
     }
 }
+
+.loginBtn {
+  margin: 0px;
+  height: 80px;
+  border-radius: 4px;
+  background-color: #1e7fba;
+
+  font-family: NotoSansCJKkr;
+  font-size: 26px;
+  fontweight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: -0.52px;
+  color: #ffffff;
+}
+
+.loginInput {
+  height: 60px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 2px 0 rgba(76, 81, 83, 0.05);
+  border: solid 1px #e0e0e0;
+
+  font-family: NotoSansCJKkr;
+  font-size: 22px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: -0.44px;
+  color: #000000;
+};
