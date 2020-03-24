@@ -102,7 +102,8 @@ class ApiClient {
             },
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
-                ...ApiClient.getToken(),
+                'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+                // ...ApiClient.getToken(),
                 ...headers,
             },
             withCredentials: true,

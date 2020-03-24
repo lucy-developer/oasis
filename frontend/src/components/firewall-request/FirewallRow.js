@@ -47,7 +47,7 @@ class FirewallRow extends Component {
                     <CustomSelect
                         // title=""
                         name="srcAddressType"
-                        value={store.addressTypeId}
+                        value={store.srcType}
                         data={store.addressType}
                         handleChange={e=> store.handleChange(e, 'srcType', 'TYPE')}
                     />
@@ -58,7 +58,7 @@ class FirewallRow extends Component {
                 <td>
                     <CustomSelect
                         name="dstAddressType"
-                        value={store.addressTypeId}
+                        value={store.dstType}
                         data={store.addressType}
                         handleChange={e=> store.handleChange(e, 'dstType', 'TYPE')}
                     />
@@ -69,7 +69,7 @@ class FirewallRow extends Component {
                 <td>
                     <CustomSelect
                         name="protocolType"
-                        value={store.protocolTypeId}
+                        value={store.protocol}
                         data={store.protocolType}
                         handleChange={e=> store.handleChange(e, 'protocol', 'TYPE')}
                     />
@@ -80,7 +80,7 @@ class FirewallRow extends Component {
                 <td>
                     <CustomSelect
                         name="protocolType"
-                        value={store.ruleActionTypeId}
+                        value={store.ruleAction}
                         data={store.ruleActionType}
                         handleChange={e=> store.handleChange(e, 'ruleAction', 'TYPE')}
                     />
@@ -99,22 +99,7 @@ class FirewallRow extends Component {
                 </td>
                 <td>
                     <Button
-                        onClick={() => {
-                            // let obj = this.state.data.find(o => o.id === key);
-                            alert(
-                                "You've clicked EDIT button on \n{ \nSrc_ip: " +
-                                store.srcIP +
-                                ", \nsrc_type: " +
-                                store.srcType.id +
-                                ", \ndst_ip: " +
-                                store.dstIP +
-                                ", \ndst_type: " +
-                                store.dstType.id +
-                                ", \nprotocol: " +
-                                store.protocol.id +
-                                "\n}."
-                            );
-                        }}
+                        onClick={e => store.handleFireRuleCheck(e)}
                         className="btn-icon btn-round"
                         color="warning"
                         size="sm"
@@ -142,7 +127,7 @@ class FirewallRow extends Component {
                         color="warning"
                         size="sm"
                     >
-                        <i className="fa   fa-remove" />
+                        <i className="fa fa-remove" />
                     </Button>
 
                 </td>
