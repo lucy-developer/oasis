@@ -1,18 +1,43 @@
 import React, { Component } from 'react';
+import { Button } from "reactstrap";
 import { observer } from 'mobx-react';
 import CustomSelect from '../common/CustomSelect';
 import CustomInput from '../common/CustomInput';
+import CustomDate from "../common/CustomDate";
 
 @observer
 class FirewallRow extends Component {
     // constructor(props) {
     //     super(props);
+    //
     //     this.state = {
-    //         // eslint-disable-next-line react/no-unused-state
-    //         is_active: true
+    //         items: [],
     //     };
     //     const { store } = this.props;
     // }
+    //
+    // componentDidMount() {
+    // }
+
+    // handleSrcType = e => {
+    //     this.setState({ src_type: e.value });
+    // };
+    //
+    // handleSrcIp = e => {
+    //     this.setState({ src_ip: e.target.value });
+    // };
+
+    saving = async () => {
+        const { store } = this.props;
+
+        // const data = {
+        //     src_ip : this.state.src_ip,
+        //     src_type : this.state.src_type
+        // };
+        //
+        // store.handleQsetPush(data)
+    };
+
 
     render() {
         const { store } = this.props;
@@ -22,74 +47,105 @@ class FirewallRow extends Component {
                     <CustomSelect
                         // title=""
                         name="srcAddressType"
-                        // disable
                         value={store.addressTypeId}
-                        // defaultValue={{ label: "Select...", value: 0 }}
                         data={store.addressType}
-                        handleChange={store.handleSelectChange}
+                        handleChange={e=> store.handleChange(e, 'srcType', 'TYPE')}
                     />
                 </td>
                 <td>
-                    {/*<CardLink onClick={() => store.handleClickDetail(row.id)}>{row.name}</CardLink>*/}
-                    {/*<input name="startAddress" type="number" className="address" />*/}
-                    <CustomInput name="srcAddress" handleChange={store.handleChange} />
+                    <CustomInput name="srcAddress" handleChange={e=> store.handleChange(e, 'srcIP', 'IP')} />
                 </td>
                 <td>
-                    {/*onClick={() => store.toggleInfoModal(row.id)} role="presentation">*/}
                     <CustomSelect
-                        // title=""
                         name="dstAddressType"
-                        // disable
                         value={store.addressTypeId}
-                        // defaultValue={{ label: "Select...", value: 0 }}
                         data={store.addressType}
-                        handleChange={store.handleSelectChange}
+                        handleChange={e=> store.handleChange(e, 'dstType', 'TYPE')}
                     />
                 </td>
                 <td>
-                    {/*onClick={() => store.toggleInfoModal(row.id)} role="presentation">*/}
-                    {/*{row.notes}*/}
-                    {/*<input name="arrivalAddress" type="number" className="address" />*/}
-                    <CustomInput name="dstAddress" handleChange={store.handleChange} />
+                    <CustomInput name="dstAddress" handleChange={e=> store.handleChange(e, 'dstIP', 'IP')} />
                 </td>
                 <td>
-                    {/*<select name="protocol" value="TCP">*/}
-                    {/*    <option selected>TCP</option>*/}
-                    {/*    <option value="UDP">UDP</option>*/}
-                    {/*    <option value="ICMP">ICMP</option>*/}
-                    {/*    <option value="IP">IP</option>*/}
-                    {/*</select>*/}
                     <CustomSelect
-                        // title=""
                         name="protocolType"
-                        // disable
                         value={store.protocolTypeId}
-                        // defaultValue={{ label: "Select...", value: 0 }}
                         data={store.protocolType}
-                        handleChange={store.handleSelectChange}
+                        handleChange={e=> store.handleChange(e, 'protocol', 'TYPE')}
                     />
                 </td>
-                {/*{row.lastMeetingOrganizer ? (*/}
-                {/*    <td onClick={() => store.toggleInfoModal(row.id)} role="presentation">*/}
-                {/*        {row.lastMeetingOrganizer.name}*/}
-                {/*    </td>*/}
-                {/*) : (*/}
-                {/*    <td onClick={() => store.toggleInfoModal(row.id)} role="presentation">*/}
-                {/*        -*/}
-                {/*    </td>*/}
-                {/*)}*/}
-                {/*{row.lastMeetingOrganizer ? (*/}
-                {/*    <td onClick={() => store.toggleInfoModal(row.id)} role="presentation">*/}
-                {/*        {row.lastMeetingOrganizer.team.name}*/}
-                {/*    </td>*/}
-                {/*) : (*/}
-                {/*    <td onClick={() => store.toggleInfoModal(row.id)} role="presentation">*/}
-                {/*        -*/}
-                {/*    </td>*/}
-                {/*)}*/}
-                {/*<td onClick={() => store.toggleInfoModal(row.id)} role="presentation">*/}
-                {/*    {`${row.checkInCountOfCompany}회`}*/}
-                {/*</td>*/}
+                <td>
+                    <CustomInput name="port" handleChange={e=> store.handleChange(e, 'port', 'TEXT')} />
+                </td>
+                <td>
+                    <CustomSelect
+                        name="protocolType"
+                        value={store.ruleActionTypeId}
+                        data={store.ruleActionType}
+                        handleChange={e=> store.handleChange(e, 'ruleAction', 'TYPE')}
+                    />
+                </td>
+                <td>
+                    <CustomDate
+                        handlePrevDateChange={store.handlePrevDateChange}
+                        handleEndDateChange={store.handleEndDateChange}
+                        prevDate={store.startDate}
+                        endDate={store.endDate}
+                        yesterday
+                    />
+                </td>
+                <td>
+                    <CustomInput name="comment" handleChange={e=> store.handleChange(e, 'comment', 'TEXT')} />
+                </td>
+                <td>
+                    <Button
+                        onClick={() => {
+                            // let obj = this.state.data.find(o => o.id === key);
+                            alert(
+                                "You've clicked EDIT button on \n{ \nSrc_ip: " +
+                                store.srcIP +
+                                ", \nsrc_type: " +
+                                store.srcType.id +
+                                ", \ndst_ip: " +
+                                store.dstIP +
+                                ", \ndst_type: " +
+                                store.dstType.id +
+                                ", \nprotocol: " +
+                                store.protocol.id +
+                                "\n}."
+                            );
+                        }}
+                        className="btn-icon btn-round"
+                        color="warning"
+                        size="sm"
+                    >
+                        <i className="fa  fa-check" />
+                    </Button>
+                    <Button
+                        onClick={() => {
+                            // let obj = this.state.data.find(o => o.id === key);
+                            alert(
+                                "You've clicked EDIT button on \n{ \nSrc_ip: " +
+                                store.srcIP +
+                                ", \nsrc_type: " +
+                                store.srcType.id +
+                                ", \ndst_ip: " +
+                                store.dstIP +
+                                ", \ndst_type: " +
+                                store.dstType.id +
+                                ", \nprotocol: " +
+                                store.protocol.id +
+                                "\n}."
+                            );
+                        }}
+                        className="btn-icon btn-round"
+                        color="warning"
+                        size="sm"
+                    >
+                        <i className="fa   fa-remove" />
+                    </Button>
+
+                </td>
             </tr>
         );
     }

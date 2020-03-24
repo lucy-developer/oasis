@@ -15,7 +15,8 @@ module.exports = {
         'react/jsx-indent-props': 0,
         'no-unused-vars': 0,
         'react/no-array-index-key': 0,
-        'react/jsx-closing-tag-location': 0
+        'react/jsx-closing-tag-location': 0,
+        'react/no-unused-state': 0,
         // "indent": [2, "tab", { "SwitchCase": 1, "VariableDeclarator": 1 }],
         // "no-tabs": 0
     },
