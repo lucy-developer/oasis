@@ -3,6 +3,7 @@ import clientImage from './assets/img/icon_client.png';
 import ClientManagement from './pages/ClientManagement';
 import CommuteByStaff from './pages/CommuteByStaff';
 import FirewallRequest from './pages/FirewallRequest';
+import FirewallSearch from "./pages/FirewallSearch";
 //import CommuteByTeam from './pages/CommuteByTeam';
 
 export default function getRoutes() {
@@ -75,6 +76,13 @@ export default function getRoutes() {
                         name: '방화벽 신청',
                         mini: '·',
                         component: FirewallRequest,
+                        layout: '/admin',
+                    },
+                    {
+                        path: '/firewall-search',
+                        name: '방화벽 내역 조회',
+                        mini: '·',
+                        component: FirewallSearch,
                         layout: '/admin',
                     },
                 ],

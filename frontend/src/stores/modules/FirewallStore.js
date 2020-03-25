@@ -1,6 +1,7 @@
 import { action, observable, runInAction } from 'mobx';
 import moment from 'moment';
 // import api from '../../utils/api';
+import jwt from "jsonwebtoken";
 import api from '../../api/config';
 
 class FirewallStore {
@@ -15,6 +16,10 @@ class FirewallStore {
     @observable size = 10;
 
     @observable data = {};
+
+    @observable approvalId = null;
+
+    @observable detailData = {};
 
     @observable infoModal = false;
 
@@ -31,10 +36,6 @@ class FirewallStore {
     @observable detailInfo = {};
 
     @observable teamData = {};
-
-    @observable detailData = {};
-
-    @observable clientId = null;
 
     @observable detailClientData = {};
 
@@ -53,19 +54,15 @@ class FirewallStore {
 
     @observable port = '';
 
-    @observable ruleAction = { id: 'ALLOW', label: 'ALLOW' };
+    @observable ruleAction = { id: 'ALLOW', label: 'ALLOW' };;
 
     @observable startDate = moment()
-        // .subtract(7, 'days')
+        .subtract(7, 'days')
         .format('YYYY-MM-DD');
 
     @observable endDate = moment().format('YYYY-MM-DD');
 
     @observable comment = '';
-
-    @observable message = '';
-
-    @observable qdatas = [];
 
     @observable qdata = {
         src_type: '',
@@ -78,8 +75,6 @@ class FirewallStore {
         start_date: '',
         end_date: '',
         comment: '',
-        status: '',
-        message : '',
     };
 
     @observable assignRows = 1;
@@ -107,8 +102,6 @@ class FirewallStore {
     @observable ruleActionType = [
         { id: 'ALLOW', label: 'ALLOW' },
         { id: 'DENY', label: 'DENY' }, ];
-
-    @observable assigns = [{ id: 0, text: '', checked: false}];
 
     constructor(root) {
         this.root = root;
@@ -140,7 +133,7 @@ class FirewallStore {
     @action toggleInfoModal = id => {
         this.infoModal = !this.infoModal;
         if (id) {
-            this.info = this.data.items.find(value => value.id === id);
+            this.info = this.data.data.find(value => value.id === id);
         } else {
             this.info = {};
         }
@@ -199,7 +192,7 @@ class FirewallStore {
     };
 
     @action handleClickDetail = value => {
-        this.clientId = value;
+        this.approvalId = value;
     };
 
     @action handleClickPlaceInfo = value => {
@@ -208,29 +201,32 @@ class FirewallStore {
 
     @action search = async () => {
         this.root.toggleLoading();
-        /* const clients = this.api.teams(); */
-        let params = {
-            page: this.page,
-            size: this.size,
-            q: this.clientName,
-            meeting_date_from: this.prevDate,
-            meeting_date_to: this.endDate,
-            meeting_organizer_name: this.staffName,
-        };
-        if (this.teamId.id !== '') {
-            params = {
-                ...params,
-                meeting_organizer_team: this.teamId.id,
-            };
+
+        let identityId;
+        if (localStorage.getItem('jwtToken')) {
+            identityId = jwt.decode(localStorage.getItem('jwtToken')).sub;
         }
-        const { data } = await api.get('/version');
+
+        const { data } = await api.firewall.search(identityId);
         runInAction(() => {
             this.root.toggleLoading();
         });
+
         this.data = data;
-        this.clientId = null;
-        this.detailData = {};
     };
+
+    @action detail = async () => {
+        this.root.toggleLoading();
+        const { data } = await api.firewall.detail(this.approvalId);
+
+        runInAction(() => {
+            this.root.toggleLoading();
+        });
+
+        this.detailData = data;
+    };
+
+
 
     @action teamStatus = async () => {
         this.root.toggleLoading();
@@ -289,15 +285,15 @@ class FirewallStore {
         this.toggleAlertModal('수정이 완료되었습니다.');
     };
 
-    @action detail = async () => {
-        this.root.toggleLoading();
-        const clients = this.api.clients();
-        const { data } = await clients.detail({ clientId: this.clientId, params: {} });
-        runInAction(() => {
-            this.root.toggleLoading();
-        });
-        this.detailData = data;
-    };
+    // @action detail = async () => {
+    //     this.root.toggleLoading();
+    //     const clients = this.api.clients();
+    //     const { data } = await clients.detail({ clientId: this.clientId, params: {} });
+    //     runInAction(() => {
+    //         this.root.toggleLoading();
+    //     });
+    //     this.detailData = data;
+    // };
 
     @action delete = async () => {
         this.root.toggleLoading();
@@ -348,7 +344,7 @@ class FirewallStore {
     };
 
     @action handleQsetPush = value => {
-        this.qdatas.push(value)
+        this.qdata.push(value)
     };
 
     @action  handleChange = (event, stateName, type, stateNameEqualTo) => {
@@ -439,7 +435,6 @@ class FirewallStore {
             creator: this.root.myPageStore.id,
         });
     }
-
 }
 
 export default FirewallStore;

@@ -2,10 +2,15 @@ package app.ssnc.io.oasis.entity.request
 
 import app.ssnc.io.oasis.entity.model.enum.Protocol
 import app.ssnc.io.oasis.entity.model.enum.RuleActions
+import app.ssnc.io.oasis.entity.model.type.json.JsonBinaryType
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
+import org.hibernate.annotations.TypeDef
 import org.springframework.web.bind.annotation.PathVariable
 import java.time.LocalDate
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
+import java.io.Serializable
 
 data class LoginRequest (
     val email: String,
@@ -18,23 +23,31 @@ data class SearchUserRequest(
     var id: String
 )
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@TypeDef(typeClass = JsonBinaryType::class, name = "jsonb")
 data class SearchRuleRequest (
-    val src_type: String,
-    val src_address: String,
-    val dest_type: String,
-    val dest_address: String,
-    @Enumerated(EnumType.STRING) val protocol: Protocol,
-    val port: Int,
-    @Enumerated(EnumType.STRING) val rule_action: RuleActions,
-    val start_date: LocalDate,
-    val end_date: LocalDate,
-    val comment: String?,
-    val status: String
-)
+    @JsonProperty("src_type") val src_type: String,
+    @JsonProperty("src_address")  val src_address: String,
+    @JsonProperty("dest_type") val dest_type: String,
+    @JsonProperty("dest_address") val dest_address: String,
+    @Enumerated(EnumType.STRING) @JsonProperty("protocol") val protocol: Protocol,
+    @JsonProperty("port") val port: Int,
+    @Enumerated(EnumType.STRING) @JsonProperty("rule_action") val rule_action: RuleActions,
+    @JsonProperty("start_date") val start_date: LocalDate,
+    @JsonProperty("end_date") val end_date: LocalDate,
+    @JsonProperty("comment") val comment: String?,
+    @JsonProperty("status") val status: String
+): Serializable {
+    companion object {
+        private const val serialVersionUID = 7542115783552544574L
+    }
+
+}
 
 data class FirewallRequest (
+//    val rules: MutableList<SearchRuleRequest>?=null,
     val rules: MutableSet<SearchRuleRequest>,
-    val assigns: List<Assign>,
+    val assigns: List<Assign>?=null,
 //    val receiver: Assign,
     val creator: Long
 )

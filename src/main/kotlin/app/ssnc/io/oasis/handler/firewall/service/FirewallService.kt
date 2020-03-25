@@ -11,11 +11,14 @@ import app.ssnc.io.oasis.exception.UniquenessFieldException
 import app.ssnc.io.oasis.handler.firewall.entity.SearchRuleReq
 import app.ssnc.io.oasis.handler.task.service.TaskService
 import app.ssnc.io.oasis.handler.user.service.UserService
+import app.ssnc.io.oasis.security.jwt.JwtTokenProvider
 import app.ssnc.io.oasis.util.DateUtil
 import app.ssnc.io.oasis.util.wallbrain.WallBrainRestApiClient
 import app.ssnc.io.oasis.util.web.RestClient
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.sds.wallbrain.base.FirewallRuleSessionInfoVo
 import mu.KLogging
+import net.sf.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -46,7 +49,7 @@ class FirewallService(
 
     @Throws(UniquenessFieldException::class, HandleConstraintViolationException::class)
     fun searchRule(request: SearchRuleRequest): Any? {
-        //val rule = HashMap<String, String>()
+        val data = HashMap<String, String>()
         val searchRule = SearchRuleReq(
             srcAddr = request.src_address,
             dstAddr = request.dest_address,
@@ -59,7 +62,6 @@ class FirewallService(
 
         val results: Array<FirewallRuleSessionInfoVo> = wallBrainRestApiClient.searchRuleSetGroup("/provision/rule/search", searchRule)
 
-        val data = HashMap<String, String>()
         for (result in results ) {
             if (result.resultStatus == "allowed") {
                 data["check"] = "ERROR"
@@ -77,32 +79,48 @@ class FirewallService(
         }
         data["check"] = "SUCCESS"
         return data
-
-        //return ResultResponse.success(data)
     }
 
     fun approvalFirewall(request: FirewallRequest) {
         taskService.findProjectByName("FIREWALL")?.let { project ->
+
             val task = Task(
-                projectSeq = project.id!!, title = "방화벽 신청",
+                projectId = project.id!!, title = "방화벽 신청",
                 key = taskService.generationKey(project.id!!),
-                creator = userService.findById(request.creator).get()
-//                ,details = request.rules
+                creator = userService.findById(request.creator).get(),
+                assignee = userService.findByName(request.assigns!!.find { it.order == 0 }!!.user_id)!!,
+                details = request.rules
             )
+
             taskService.createTask(task)
 
-            request.assigns.forEach { assign ->
-                val taskAssign = TaskAssign(projectSeq = project.id!!,
+            request.assigns!!.forEach { assign ->
+                val taskAssign = TaskAssign(projectId = project.id!!, taskId = task.id!!,
                     orderNo = assign.order, status = AssignStatus.PENDING,
                     assign = userService.findByEmail(assign.user_id)!!)
                 taskService.createTaskAssigns(taskAssign)
             }
-
-        }. run {
+        }?. run {
             throw ResourceNotFoundException("Project not found")
         }
     }
 
+    fun searchApprovalFirewall(userId: String) : Any? {
+        taskService.findProjectByName("FIREWALL")?.let { project ->
+            //요청한 사람 기준으로 조회
+            return taskService.searchTaskByProject(userService.findByEmail(userId)!!, project.id!!)
+        }?. run {
+            throw ResourceNotFoundException("Project not found")
+        }
+        throw ResourceNotFoundException("Task Data not found")
+    }
 
-
+    fun searchApprovalDetailFirewall(id: Long) : Any? {
+        taskService.searchTaskById(id)?.let { it ->
+            return it
+        }?. run {
+            throw ResourceNotFoundException("Task not found")
+        }
+        throw ResourceNotFoundException("Task not found")
+    }
 }

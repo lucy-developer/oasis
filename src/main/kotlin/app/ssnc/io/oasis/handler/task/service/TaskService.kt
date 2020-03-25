@@ -3,6 +3,7 @@ package app.ssnc.io.oasis.handler.task.service
 import app.ssnc.io.oasis.entity.model.Project
 import app.ssnc.io.oasis.entity.model.Task
 import app.ssnc.io.oasis.entity.model.TaskAssign
+import app.ssnc.io.oasis.entity.model.User
 import app.ssnc.io.oasis.entity.request.CreateProjectRequest
 import app.ssnc.io.oasis.entity.request.FirewallRequest
 import app.ssnc.io.oasis.exception.ResourceNotFoundException
@@ -58,7 +59,7 @@ class TaskService {
     fun generationKey(seq: Long) : String {
         val project = projectRepository.findById(seq).get()
 
-        taskRepository.findFirstByProjectSeqOrderByIdDesc(seq)?.let { exist ->
+        taskRepository.findFirstByProjectIdOrderByIdDesc(seq)?.let { exist ->
             return String.format("%s-%05d", project.key , exist.key.split('-')[1].toLong()+1)
         } ?: run {
           return   String.format("%s-%05d", project.key , 1)
@@ -72,6 +73,18 @@ class TaskService {
 
     fun createTaskAssigns(taskAssign: TaskAssign) {
         taskAssignRepository.save(taskAssign)
+    }
+
+    fun searchTaskByCreateUser(user: User): List<Task>? {
+        return taskRepository.findByCreator(creator = user)
+    }
+
+    fun searchTaskByProject(user: User, projectId: Long): List<Task>? {
+        return taskRepository.findByProjectIdAndCreatorOrAssignee(creator = user, assignee = user, projectId = projectId)
+    }
+
+    fun searchTaskById(id: Long): Task? {
+        return taskRepository.findById(id).orElse(null)
     }
 
 
