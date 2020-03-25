@@ -35,13 +35,13 @@ data class SearchRuleRequest (
 data class FirewallRequest (
     val rules: MutableSet<SearchRuleRequest>,
     val assigns: List<Assign>,
-    val receiver: Assign,
+//    val receiver: Assign,
     val creator: Long
 )
 
 data class Assign (
     val user_id: String,
-    val username: String,
+//    val username: String,
     val order: Int? = 0
 )
 

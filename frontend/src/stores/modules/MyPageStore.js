@@ -166,7 +166,7 @@ class MyPageStore {
         });
         this.data = data;
         this.dept = data.dept;
-        this.id = data.email;
+        this.id = data.id;
         this.role = data.roles[0].name;
         this.name = data.username;
         this.phone = data.mobile;

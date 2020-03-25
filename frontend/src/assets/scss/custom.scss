@@ -18,9 +18,7 @@
 }
 
 .custom-logo {
-  //width: 10rem;
-  background-attachment: fixed;
-  position: sticky;
+  width: 10rem;
 }
 
 .dashboard-card-image {
@@ -363,4 +361,8 @@
   flex: 0;
   margin-top: 5px;
   width: 40px;
+}
+
+.detail-input{
+  width: 105px;
 }

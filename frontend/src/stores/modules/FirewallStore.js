@@ -53,15 +53,19 @@ class FirewallStore {
 
     @observable port = '';
 
-    @observable ruleAction = { id: 'ALLOW', label: 'ALLOW' };;
+    @observable ruleAction = { id: 'ALLOW', label: 'ALLOW' };
 
     @observable startDate = moment()
-        .subtract(7, 'days')
+        // .subtract(7, 'days')
         .format('YYYY-MM-DD');
 
     @observable endDate = moment().format('YYYY-MM-DD');
 
     @observable comment = '';
+
+    @observable message = '';
+
+    @observable qdatas = [];
 
     @observable qdata = {
         src_type: '',
@@ -74,7 +78,13 @@ class FirewallStore {
         start_date: '',
         end_date: '',
         comment: '',
+        status: '',
+        message : '',
     };
+
+    @observable assignRows = 1;
+
+    @observable qdatesRows = 1;
 
     @observable addressTypeId = { id: 'IPv4', label: 'IPv4' };
 
@@ -97,6 +107,8 @@ class FirewallStore {
     @observable ruleActionType = [
         { id: 'ALLOW', label: 'ALLOW' },
         { id: 'DENY', label: 'DENY' }, ];
+
+    @observable assigns = [{ id: 0, text: '', checked: false}];
 
     constructor(root) {
         this.root = root;
@@ -336,7 +348,7 @@ class FirewallStore {
     };
 
     @action handleQsetPush = value => {
-        this.qdata.push(value)
+        this.qdatas.push(value)
     };
 
     @action  handleChange = (event, stateName, type, stateNameEqualTo) => {
@@ -390,7 +402,44 @@ class FirewallStore {
         runInAction(() => {
             this.root.toggleLoading();
         });
+
+        // console.log( data.data.compliance );
+        this.qdata = params;
+        if (data.data.check === "ERROR") {
+            this.qdata.message = data.data.message;
+            this.message = data.data.message;
+            this.toggleAlertModal(data.data.message);
+        } else {
+            this.qdata.status = '0';
+            this.handleQsetPush(this.qdata);
+        }
+    };
+
+    @action handleAssignRowsChange = value => {
+        this.assignRows = value;
+    };
+
+    @action handleQdatesRowsChange = value => {
+        this.qdatasRows = value;
+    };
+
+    @action handleQdateRowsChange = value => {
+        this.qdatasRows = value;
+    };
+
+    @action createAssigns = value => {
+        this.assigns = value;
     }
+
+    @action requestFirewallRule = async () => {
+        this.root.toggleLoading();
+        const params = ({
+            rules: this.qdatas,
+            assigns: this.assigns,
+            creator: this.root.myPageStore.id,
+        });
+    }
+
 }
 
 export default FirewallStore;

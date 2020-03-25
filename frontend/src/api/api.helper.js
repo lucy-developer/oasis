@@ -36,7 +36,7 @@ export const successHandler = (response) => {
     const meta = {
         status: response.status,
         normalizedStatus: httpStatusNormalizer({ status: response.status }),
-        statusText: response.statusText,
+        statusText: response.data,
     };
 
     return Promise.resolve({ data, meta });
