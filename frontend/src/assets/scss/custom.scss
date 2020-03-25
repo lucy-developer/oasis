@@ -52,6 +52,7 @@
 
 .sidebar-text{
   padding-top: 2px;
+  color: black;
 }
 
 .custom-dashboard {
@@ -360,4 +361,8 @@
   flex: 0;
   margin-top: 5px;
   width: 40px;
+}
+
+.detail-input{
+  width: 105px;
 }

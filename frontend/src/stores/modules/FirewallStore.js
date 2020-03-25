@@ -84,6 +84,8 @@ class FirewallStore {
 
     @observable assignRows = 1;
 
+    @observable qdatesRows = 1;
+
     @observable addressTypeId = { id: 'IPv4', label: 'IPv4' };
 
     @observable addressType = [
@@ -415,6 +417,14 @@ class FirewallStore {
 
     @action handleAssignRowsChange = value => {
         this.assignRows = value;
+    };
+
+    @action handleQdatesRowsChange = value => {
+        this.qdatasRows = value;
+    };
+
+    @action handleQdateRowsChange = value => {
+        this.qdatasRows = value;
     };
 
     @action createAssigns = value => {
