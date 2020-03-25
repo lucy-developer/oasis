@@ -100,38 +100,41 @@ class FirewallRow extends Component {
                     <CustomInput name="comment" handleChange={e=> store.handleChange(e, 'comment', 'TEXT')} />
                 </td>
                 <td>
-                    <Button
-                        onClick={e => store.handleFireRuleCheck(e)}
-                        className="btn-icon btn-round"
-                        color="warning"
-                        size="sm"
-                    >
-                        <i className="fa  fa-check" />
-                    </Button>
-                    <Button
-                        onClick={() => {
-                            // let obj = this.state.data.find(o => o.id === key);
-                            alert(
-                                "You've clicked EDIT button on \n{ \nSrc_ip: " +
-                                store.srcIP +
-                                ", \nsrc_type: " +
-                                store.srcType.id +
-                                ", \ndst_ip: " +
-                                store.dstIP +
-                                ", \ndst_type: " +
-                                store.dstType.id +
-                                ", \nprotocol: " +
-                                store.protocol.id +
-                                "\n}."
-                            );
-                        }}
-                        className="btn-icon btn-round"
-                        color="warning"
-                        size="sm"
-                    >
-                        <i className="fa fa-remove" />
-                    </Button>
-
+                    <div style={{ width: "56px" }}>
+                        <Button
+                            onClick={e => store.handleFireRuleCheck(e)}
+                            className="btn-icon btn-round"
+                            color="warning"
+                            size="sm"
+                            style={{ width: "28px", float: "left" }}
+                        >
+                            <i className="fa  fa-check" />
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                // let obj = this.state.data.find(o => o.id === key);
+                                alert(
+                                    "You've clicked EDIT button on \n{ \nSrc_ip: " +
+                                    store.srcIP +
+                                    ", \nsrc_type: " +
+                                    store.srcType.id +
+                                    ", \ndst_ip: " +
+                                    store.dstIP +
+                                    ", \ndst_type: " +
+                                    store.dstType.id +
+                                    ", \nprotocol: " +
+                                    store.protocol.id +
+                                    "\n}."
+                                );
+                            }}
+                            className="btn-icon btn-round"
+                            color="warning"
+                            size="sm"
+                            style={{ width: "28px" }}
+                        >
+                            <i className="fa fa-remove" />
+                        </Button>
+                    </div>
                 </td>
             </tr>
         );

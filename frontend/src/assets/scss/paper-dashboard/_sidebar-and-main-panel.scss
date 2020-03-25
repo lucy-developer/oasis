@@ -53,6 +53,7 @@
                 display: block;
                 line-height: 20px;
                 z-index: 1;
+                color: black;
                 font-size: 16px;
               }
 
@@ -116,7 +117,7 @@
             top: 14px;
             position: absolute;
             right: 10px;
-            color: $primary-color;
+            //color: $primary-color;
         }
 
         li{
@@ -268,7 +269,7 @@
             right: 15px;
             height: 1px;
             width: calc(100% - 30px);
-            background-color: $primary-color;
+            background-color: #e9e9e9; //$primary-color;
 
         }
 
@@ -323,7 +324,7 @@
     }
 
     &:after{
-        @include icon-gradient($default-color);
+        //@include icon-gradient($default-color);
         z-index: 3;
     }
 
@@ -332,7 +333,7 @@
       @include sidebar-text-color($default-color);
     }
     &[data-color="brown"]{
-      @include sidebar-color($default-color);
+      //@include sidebar-color($default-color);
     }
 
     // Active color changing
