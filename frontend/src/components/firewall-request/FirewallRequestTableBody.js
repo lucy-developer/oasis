@@ -17,6 +17,7 @@ class FirewallRequestTableBody extends Component {
         for (let i = 0; i < store.rows; i++) {
             // row.push(<FirewallRow />)
             table.push(<FirewallRow store={store} />);
+            table.push(<div>{store.message}</div>);
         }
 
         // eslint-disable-next-line no-undef
@@ -29,6 +30,19 @@ class FirewallRequestTableBody extends Component {
     };
 
     render() {
+        const { store } = this.props;
+        const qdatas = store.qdatas.map(
+            ({id, text, checked}) => (
+                // <AssigneeItem
+                //     id={assignees.id}
+                //     text={assignees.text}
+                //     checked={assignees.checked}
+                //     onRemove={this.handleRemove}
+                //     key={id}
+                // />
+                <div>{text}</div>
+            )
+        );
         return (
             <>
             {this.renderTableBody()}

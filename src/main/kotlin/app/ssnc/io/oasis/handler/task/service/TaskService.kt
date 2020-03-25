@@ -9,6 +9,7 @@ import app.ssnc.io.oasis.exception.ResourceNotFoundException
 import app.ssnc.io.oasis.exception.UniquenessFieldException
 import app.ssnc.io.oasis.handler.user.service.UserService
 import app.ssnc.io.oasis.repository.ProjectRepository
+import app.ssnc.io.oasis.repository.TaskAssignRepository
 import app.ssnc.io.oasis.repository.TaskRepository
 import mu.KLogging
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,6 +24,9 @@ class TaskService {
 
     @Autowired
     private lateinit var taskRepository: TaskRepository
+
+    @Autowired
+    private lateinit var taskAssignRepository: TaskAssignRepository
 
     @Autowired
     private lateinit var userService: UserService
@@ -48,13 +52,13 @@ class TaskService {
     }
 
     fun findProjectByName(name: String): Project? {
-        return projectRepository.findByName(name).orElseThrow { throw ResourceNotFoundException("Project not found")  }
+        return projectRepository.findByKey(name).orElseThrow { throw ResourceNotFoundException("Project not found")  }
     }
 
     fun generationKey(seq: Long) : String {
         val project = projectRepository.findById(seq).get()
 
-        taskRepository.findFirstByProjectSeqOrderByKeyDesc(seq)?.let { exist ->
+        taskRepository.findFirstByProjectSeqOrderByIdDesc(seq)?.let { exist ->
             return String.format("%s-%05d", project.key , exist.key.split('-')[1].toLong()+1)
         } ?: run {
           return   String.format("%s-%05d", project.key , 1)
@@ -67,7 +71,7 @@ class TaskService {
     }
 
     fun createTaskAssigns(taskAssign: TaskAssign) {
-
+        taskAssignRepository.save(taskAssign)
     }
 
 

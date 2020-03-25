@@ -5,6 +5,7 @@ import app.ssnc.io.oasis.config.ApiConfig.API_PATH
 import app.ssnc.io.oasis.config.ApiConfig.API_VERSION
 import app.ssnc.io.oasis.entity.request.FirewallRequest
 import app.ssnc.io.oasis.entity.request.SearchRuleRequest
+import app.ssnc.io.oasis.entity.response.ResultResponse
 import app.ssnc.io.oasis.handler.firewall.service.FirewallService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -18,11 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 @RestController
 @RequestMapping(path = ["/${API_PATH}/${API_VERSION}/firewall"])
 @Api(value = "firewall", description = "Rest API for firewall operations", tags = arrayOf("firewall API"))
-class FirewallController {
+class FirewallController : ResponseEntityExceptionHandler() {
     @Autowired
     private lateinit var firewallService: FirewallService
 
@@ -36,8 +38,9 @@ class FirewallController {
             ApiResponse(code = 422, message = "Firewall Compliance")
         )
     )
-    fun searchRule(@RequestBody request: SearchRuleRequest) =
-        ok(firewallService.searchRule(request))
+    fun searchRule(@RequestBody request: SearchRuleRequest) : ResultResponse {
+        return ResultResponse.success(firewallService.searchRule(request))
+    }
 
     @PostMapping("/request")
     @ApiOperation(value = "")//, response = Greeting::class)
@@ -49,8 +52,10 @@ class FirewallController {
             ApiResponse(code = 422, message = "Firewall Compliance")
         )
     )
-    fun requestRule(@RequestBody request: SearchRuleRequest) =
-        ok(firewallService.searchRule(request))
+    fun requestRule(@RequestBody request: SearchRuleRequest) : ResultResponse {
+        return ResultResponse.success(firewallService.searchRule(request))
+    }
+
 
     @PostMapping("/approval")
     @ApiOperation(value = "방화벽 승인 요청 API")//, response = Greeting::class)
