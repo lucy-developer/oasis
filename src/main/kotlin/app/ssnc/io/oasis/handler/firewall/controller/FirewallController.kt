@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 @RestController
@@ -69,4 +66,32 @@ class FirewallController : ResponseEntityExceptionHandler() {
     )
     fun approvalFirewall(@RequestBody request: FirewallRequest) =
         ok(firewallService.approvalFirewall(request))
+
+    @GetMapping("/approval/{userId}")
+    @ApiOperation(value = "방화벽 승인 요청 검색 API")//, response = Greeting::class)
+    @ApiResponses(
+        value = *arrayOf(
+            ApiResponse(code = 200, message = "OK"),
+            ApiResponse(code = 401, message = "You are not authorized access the resource"),
+            ApiResponse(code = 404, message = "The resource not found"),
+            ApiResponse(code = 422, message = "Firewall Compliance")
+        )
+    )
+    fun searchApprovalFirewall(@PathVariable userId: String) : ResultResponse {
+        return ResultResponse.success(data = firewallService.searchApprovalFirewall(userId))
+    }
+
+    @GetMapping("/approval/detail/{id}")
+    @ApiOperation(value = "방화벽 승인 요청 상세 검색 API")//, response = Greeting::class)
+    @ApiResponses(
+        value = *arrayOf(
+            ApiResponse(code = 200, message = "OK"),
+            ApiResponse(code = 401, message = "You are not authorized access the resource"),
+            ApiResponse(code = 404, message = "The resource not found"),
+            ApiResponse(code = 422, message = "Firewall Compliance")
+        )
+    )
+    fun searchApprovalDetailFirewall(@PathVariable id: Long) : ResultResponse {
+        return ResultResponse.success(data = firewallService.searchApprovalDetailFirewall(id))
+    }
 }

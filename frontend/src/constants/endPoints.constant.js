@@ -12,5 +12,7 @@ export default {
     },
     firewalls: {
         checkRule: () => 'v1/firewall/search',
+        search: () => 'v1/firewall/approval/',
+        detail: () => 'v1/firewall/approval/detail/',
     }
 };

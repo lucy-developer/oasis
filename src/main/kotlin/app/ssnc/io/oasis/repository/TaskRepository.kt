@@ -3,13 +3,17 @@ package app.ssnc.io.oasis.repository
 import app.ssnc.io.oasis.entity.model.Project
 import app.ssnc.io.oasis.entity.model.Task
 import app.ssnc.io.oasis.entity.model.TaskAssign
+import app.ssnc.io.oasis.entity.model.User
+import app.ssnc.io.oasis.entity.request.Assign
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
 interface TaskRepository : CrudRepository<Task, Long> {
-    fun findFirstByProjectSeqOrderByIdDesc(projectSeq: Long): Task?
+    fun findFirstByProjectIdOrderByIdDesc(projectId: Long): Task?
+    fun findByCreator(creator: User) : List<Task>?
+    fun findByProjectIdAndCreatorOrAssignee(projectId: Long, creator: User, assignee: User ) : List<Task>?
 }
 
 @Repository
