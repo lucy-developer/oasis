@@ -82,6 +82,7 @@
     font-family: NotoSansCJKkr;
     font-size: 24px;
     letter-spacing: -0.48px;
+    padding-bottom: 26px;
   }
 
 }
@@ -161,7 +162,9 @@
   }
 
   .table-body {
-    margin-top: 1rem;
+    //margin-top: 1rem;
+    padding: 0px;
+
     th {
       /*background-color: $default-color;
       color: #ffffff;*/
@@ -349,4 +352,12 @@
   bottom: 0;
   width: 100%;
   margin: auto;
+}
+
+.dateLabel {
+  padding-left: 0px;
+  padding-right: 0px;
+  flex: 0;
+  margin-top: 5px;
+  width: 40px;
 }

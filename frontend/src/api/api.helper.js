@@ -11,7 +11,7 @@ export const httpStatusNormalizer = ({ status = 0 }) => {
         normalizedStatus = 300;
     }
 
-    if (status > 403 && status < 500) {
+    if (status > 405 && status < 500) {
         normalizedStatus = 400;
     }
 
@@ -58,5 +58,5 @@ export const failureHandler = (error) => {
     const meta = {};
 
     // eslint-disable-next-line prefer-promise-reject-errors
-    return Promise.resolve({ data, meta });
+    return Promise.reject({ data, meta });
 };

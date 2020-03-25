@@ -82,46 +82,12 @@ class Login extends React.Component {
     render() {
         const { signInStore } = this.props;
 
-        const loginForm = {
-            width: "536px"
-        };
-
         const loginInputGroup = {
             paddingBottom: "20px"
         };
 
-        const loginInput = {
-            height: "60px",
-            borderRadius: "4px",
-            boxShadow: "0px 2px 2px 0 rgba(76, 81, 83, 0.05)",
-            border: "solid 1px #e0e0e0",
-
-            fontFamily: "NotoSansCJKkr",
-            fontSize: "22px",
-            fontWeight: "normal",
-            fontStretch: "normal",
-            fontStyle: "normal",
-            letterSpacing: "-0.44px",
-            color: "#000000"
-        };
-
         const loginBtnFooter = {
-            padding: "22px 15px"
-        };
-
-        const loginBtn = {
-            margin: "0px",
-            height: "80px",
-            borderRadius: "4px",
-            backgroundColor: "#1e7fba",
-
-            fontFamily: "NotoSansCJKkr",
-            fontSize: "26px",
-            fontWeight: "normal",
-            fontStretch: "normal",
-            fontStyle: "normal",
-            letterSpacing: "-0.52px",
-            color: "#ffffff"
+            padding: "22px 0px"
         };
 
         return (
@@ -129,7 +95,7 @@ class Login extends React.Component {
                 <Container>
                     <Row style={{ paddingLeft: "76px" }}>
                         <Col className="ml-auto mr-auto" lg="4" md="6">
-                            <Form action="" className="form" method="" style={loginForm}>
+                            <Form action="" className="form" method="" style={{ width: "536px"}}>
                                 <Card className="card-login">
                                     <CardHeader>
                                         <CardHeader>
@@ -155,7 +121,7 @@ class Login extends React.Component {
                                                 name="loginName"
                                                 onChange={signInStore.handleChange}
                                                 onKeyPress={this.keyPressInputId}
-                                                style={loginInput}
+                                                className="loginInput"
                                             />
                                         </InputGroup>
                                         <InputGroup>
@@ -173,7 +139,7 @@ class Login extends React.Component {
                                                 name="password"
                                                 onChange={signInStore.handleChange}
                                                 onKeyPress={this.keyPressPassword}
-                                                style={loginInput}
+                                                className="loginInput"
                                             />
                                         </InputGroup>
                                         <Badge className="errorBadge" color="danger">
@@ -181,7 +147,7 @@ class Login extends React.Component {
                                         </Badge>
                                     </CardBody>
                                     <CardFooter style={loginBtnFooter}>
-                                        <Button block className="btn-default mb-3" color="default" style={loginBtn} onClick={this.login}>
+                                        <Button block className="btn-default mb-3 loginBtn" color="default" onClick={this.login}>
                                             로그인
                                         </Button>
                                     </CardFooter>

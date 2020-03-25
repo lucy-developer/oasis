@@ -6,11 +6,12 @@ import moment from 'moment';
 class CustomDate extends Component {
     render() {
         const { prevDate, endDate, handlePrevDateChange, handleEndDateChange, yesterday } = this.props;
+
         return (
             <>
-                <Col md="4" xs="8">
-                    <Row>
-                        <Col xs="5" className="datetime-custom-left">
+                <Col md="4" xs="8" style={{ width: "257px" }}>
+                    <Row style={{ width: "285px" }}>
+                        <Col xs="5" className="datetime-custom-left" style={{ paddingLeft: "0px", width: "120px" }}>
                             <FormGroup>
                                 <ReactDatetime
                                     inputProps={{
@@ -33,10 +34,10 @@ class CustomDate extends Component {
                                 />
                             </FormGroup>
                         </Col>
-                        <Label xs="2" className="search-label text-center datetime-custom-center">
+                        <Label xs="2" className="search-label text-center datetime-custom-center dateLabel">
                             ~
                         </Label>
-                        <Col xs="5" className="datetime-custom-right">
+                        <Col xs="5" className="datetime-custom-right" style={{ paddingRight: "0px", width: "120px" }}>
                             <FormGroup>
                                 <ReactDatetime
                                     inputProps={{
@@ -51,9 +52,9 @@ class CustomDate extends Component {
                                         await handleEndDateChange(e);
                                     }}
                                     locale="ko"
-                                    // isValidDate={current => {
-                                    //     return yesterday ? current.isBefore(moment().subtract(1, 'days')) : current.isBefore(moment());
-                                    // }}
+                                    isValidDate={current => {
+                                        return yesterday ? current.isBefore(moment().subtract(1, 'days')) : current.isBefore(moment());
+                                    }}
                                     timeFormat={false}
                                     closeOnSelect
                                 />

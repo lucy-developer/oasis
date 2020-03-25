@@ -45,6 +45,8 @@
   align-items: center;
   min-height: 90vh;
   padding: 100px 0 120px;
+  width: 60%;
+  float: right;
   & > .footer{
     position: relative;
     z-index: 4;
@@ -150,7 +152,7 @@
 
     &.navbar-transparent {
       border-bottom: 1px solid transparent;
-      margin-top: 25px;
+      //margin-top: 25px;
     }
 
     .navbar-brand {

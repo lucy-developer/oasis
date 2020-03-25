@@ -27,7 +27,7 @@ class FirewallRequest extends Component {
                     <Row>
                         <FirewallRequestBodyCard
                             store={firewallStore}
-                            tableHeader={['상태', '방문자', '방문 내용', '방문지 위치', '방문 일시', '방문 상태']}
+                            tableHeader={['주소 유형', '출발지 주소', '주소 유형', '목적지 주소', '프로토콜', '포트', '허용여부', '기간', '요청내용', '액션']}
                         />
                     </Row>
                 </Container>
