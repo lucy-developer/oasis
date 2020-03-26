@@ -39,7 +39,7 @@ class FirewallRequestBodyCard extends Component {
                        <Row>
                            <Col className="table-body">
                                <Table className="custom-table custom-table-clickable" bordered striped responsive>
-                                   {/* <TableHeaders tableHeader={tableHeader} /> */}
+                                   <TableHeaders tableHeader={tableHeader} />
                                    <tbody>
                                    <FirewallRequestTableBody store={store} removeRow={this.removeRow} />
                                    </tbody>
@@ -69,13 +69,13 @@ class FirewallRequestBodyCard extends Component {
                    </CardBody>
                </Card>
                <div className="modal-footer">
-                   <div className="right-side">
+                   <div className="right-side" style={{paddingLeft:"380px"}}>
                        <Button className="btn-link firewall-request" color="default" type="button" onClick={store.detailMeetingEdit}>
                            요청
                        </Button>
                    </div>
                    {/* <div className="divider" /> */}
-                   <div className="left-side">
+                   <div className="left-side" style={{paddingRight:"380px"}}>
                        <Button className="btn-link firewall-request" type="button" onClick={store.toggleDetailInfoModal}>
                            취소
                        </Button>
