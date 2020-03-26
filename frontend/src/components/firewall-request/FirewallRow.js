@@ -115,7 +115,7 @@ class FirewallRow extends Component {
         const { store } = this.props;
         this.renderData();
         return (
-            <div>
+            <>
                 <tr className="text-center">
                     <td>
                         <CustomSelect
@@ -148,7 +148,7 @@ class FirewallRow extends Component {
                             handleChange={e=> store.handleChange(e, 'protocol', 'TYPE')}
                         />
                     </td>
-                    <td>
+                    <td style={{width: "75px"}}>
                         <CustomInput name="port" handleChange={e=> store.handleChange(e, 'port', 'TEXT')} />
                     </td>
                     <td>
@@ -171,7 +171,7 @@ class FirewallRow extends Component {
                     <td>
                         <CustomInput name="comment" handleChange={e=> store.handleChange(e, 'comment', 'TEXT')} />
                     </td>
-                    <td>
+                    <td style={{padding:"8px 15px"}}>
                         <Button
                             onClick={e => store.handleFireRuleCheck(e)}
                             className="btn-icon btn-round"
@@ -205,7 +205,7 @@ class FirewallRow extends Component {
                         </Button>
                     </td>
                 </tr>
-            </div>
+            </>
         );
     }
 }

@@ -373,7 +373,7 @@
   height: 66px;
   border-radius: 4px;
   box-shadow: 0px 2px 4px 0 rgba(56, 66, 72, 0.2);
-  background-color: #1e7fba;
+  background-color: #ffffff;
 
   font-family: NotoSansCJKkr;
   font-size: 24px;
@@ -381,7 +381,7 @@
   font-stretch: normal;
   font-style: normal;
   letter-spacing: -0.48px;
-  color: #ffffff;
+  color: #000000;
 }
 
 .firewall-cancel{
@@ -398,4 +398,30 @@
   font-style: normal;
   letter-spacing: -0.48px;
   color: #000000;
+}
+
+.detail-row-input{
+  width: 100px;
+  font-family: Montserrat;
+  height: 40px;
+  margin-bottom: 0px;
+  padding-left: 17px;
+  color: #000000;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  font-size: 16px;
+  transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  box-shadow: none;
+  display: block;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
