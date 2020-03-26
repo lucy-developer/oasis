@@ -3,22 +3,22 @@ package app.ssnc.io.oasis.handler.firewall.service
 import app.ssnc.io.oasis.entity.model.Task
 import app.ssnc.io.oasis.entity.model.TaskAssign
 import app.ssnc.io.oasis.entity.model.enum.AssignStatus
+import app.ssnc.io.oasis.entity.model.enum.AuditStatus
 import app.ssnc.io.oasis.entity.request.FirewallRequest
 import app.ssnc.io.oasis.entity.request.SearchRuleRequest
+import app.ssnc.io.oasis.entity.request.processApporovalFirewallRequest
 import app.ssnc.io.oasis.exception.HandleConstraintViolationException
 import app.ssnc.io.oasis.exception.ResourceNotFoundException
 import app.ssnc.io.oasis.exception.UniquenessFieldException
+import app.ssnc.io.oasis.handler.firewall.entity.ApporovalDetailRes
 import app.ssnc.io.oasis.handler.firewall.entity.SearchRuleReq
 import app.ssnc.io.oasis.handler.task.service.TaskService
 import app.ssnc.io.oasis.handler.user.service.UserService
-import app.ssnc.io.oasis.security.jwt.JwtTokenProvider
 import app.ssnc.io.oasis.util.DateUtil
 import app.ssnc.io.oasis.util.wallbrain.WallBrainRestApiClient
 import app.ssnc.io.oasis.util.web.RestClient
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.sds.wallbrain.base.FirewallRuleSessionInfoVo
 import mu.KLogging
-import net.sf.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -88,7 +88,7 @@ class FirewallService(
                 projectId = project.id!!, title = "방화벽 신청",
                 key = taskService.generationKey(project.id!!),
                 creator = userService.findById(request.creator).get(),
-                assignee = userService.findByName(request.assigns!!.find { it.order == 0 }!!.user_id)!!,
+//                assignee = userService.findByName(request.assigns!!.find { it.order == 0 }!!.user_id)!!,
                 details = request.rules
             )
 
@@ -99,8 +99,12 @@ class FirewallService(
                     orderNo = assign.order, status = AssignStatus.PENDING,
                     assign = userService.findByEmail(assign.user_id)!!)
                 taskService.createTaskAssigns(taskAssign)
+                if (request.assigns.minBy { it.order!! }!!.order == assign.order) {
+                    task.assignee = taskAssign
+                    taskService.createTask(task)
+                }
             }
-        }?. run {
+        }?: run {
             throw ResourceNotFoundException("Project not found")
         }
     }
@@ -108,19 +112,42 @@ class FirewallService(
     fun searchApprovalFirewall(userId: String) : Any? {
         taskService.findProjectByName("FIREWALL")?.let { project ->
             //요청한 사람 기준으로 조회
-            return taskService.searchTaskByProject(userService.findByEmail(userId)!!, project.id!!)
-        }?. run {
+            return taskService.searchTaskByProject(project.id!!)
+        }?: run {
             throw ResourceNotFoundException("Project not found")
         }
-        throw ResourceNotFoundException("Task Data not found")
     }
 
     fun searchApprovalDetailFirewall(id: Long) : Any? {
         taskService.searchTaskById(id)?.let { it ->
-            return it
-        }?. run {
+            val result = ApporovalDetailRes(
+                task = it,
+                assignees = taskService.searchTaskAssigneeByTask(id)!!)
+            return result
+        }?: run {
             throw ResourceNotFoundException("Task not found")
         }
-        throw ResourceNotFoundException("Task not found")
+    }
+
+    fun processApprovalFirewall(request: processApporovalFirewallRequest) {
+        taskService.searchTaskById(request.task)?.let { task ->
+            taskService.searchTaskAssignById(request.assignee)?.let { taskAssign ->
+                taskAssign.status = request.status
+                taskService.createTaskAssigns(taskAssign)
+                val exist = taskService.searchTaskAssignByTaskAndOrder(taskId = request.task, order = taskAssign.orderNo!!+1)
+                if (exist == null) {
+                    task.status = AuditStatus.CONFIRMED
+                    // todo FPMS 요청
+                } else {
+                    task.status = AuditStatus.APPROVAL
+                    task.assignee = taskService.searchTaskAssignByTaskAndOrder(taskId = request.task, order = taskAssign.orderNo!!+1)
+                }
+                taskService.createTask(task)
+            } ?: run {
+                throw ResourceNotFoundException("Task Assignee not found")
+            }
+        } ?: run {
+            throw ResourceNotFoundException("Task not found")
+        }
     }
 }

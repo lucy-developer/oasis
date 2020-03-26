@@ -18,7 +18,7 @@ class FirewallSearchTableBody extends Component {
                         </td>
                         <td>{row.creator.username}</td>
                         <td>{row.status}</td>
-                        <td>{row.assignee.username}</td>
+                        <td>{row.assignee.assign.username}</td>
                         <td>{moment(row.createDate).format('YYYY.MM.DD HH:mm')}</td>
                     </tr>
                 )

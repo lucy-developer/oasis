@@ -54,7 +54,7 @@ class FirewallStore {
 
     @observable port = '';
 
-    @observable ruleAction = { id: 'ALLOW', label: 'ALLOW' };;
+    @observable ruleAction = { id: 'ALLOW', label: 'ALLOW' };
 
     @observable startDate = moment()
         .subtract(7, 'days')
@@ -67,15 +67,15 @@ class FirewallStore {
     @observable qdatas = [];
 
     @observable qdata = {
-        src_type: '',
+        src_type: 'IPv4',
         src_address: '',
-        dest_type: '',
+        dest_type: 'IPv4',
         dest_address: '',
-        protocol: '',
+        protocol: 'TCP',
         port: '',
-        rule_action: '',
-        start_date: '',
-        end_date: '',
+        rule_action: 'ALLOW',
+        start_date: this.startDate,
+        end_date: this.endDate,
         comment: '',
     };
 
@@ -105,13 +105,22 @@ class FirewallStore {
         { id: 'ALLOW', label: 'ALLOW' },
         { id: 'DENY', label: 'DENY' }, ];
 
+    @observable assignId = { id: 'Approval', label: '결재' };
+
+    @observable assignType = [
+        { id: 'Approval', label: '결재' },
+        { id: 'Consultation', label: '결재' },];
+
+    @observable assignees = [];
+
+    @observable assignee = {
+        order: '',
+        user_id: '',
+    };
+
     constructor(root) {
         this.root = root;
     }
-
-    @action handleChange = e => {
-        this[e.target.name] = e.target.value;
-    };
 
     @action handleSelectChange = e => {
         this.addressTypeId = {
@@ -121,11 +130,11 @@ class FirewallStore {
     };
 
     @action handlePrevDateChange = e => {
-        this.startDate = moment(e, 'YYYY-MM-DD').format('YYYY-MM-DD');
+        this.qdata.start_date = moment(e, 'YYYY-MM-DD').format('YYYY-MM-DD');
     };
 
     @action handleEndDateChange = e => {
-        this.endDate = moment(e, 'YYYY-MM-DD').format('YYYY-MM-DD');
+        this.qdata.end_date = moment(e, 'YYYY-MM-DD').format('YYYY-MM-DD');
     };
 
     @action handlePageChange = value => {
@@ -228,8 +237,6 @@ class FirewallStore {
         this.detailData = data;
     };
 
-
-
     @action teamStatus = async () => {
         this.root.toggleLoading();
         //const teams = await api.teams();
@@ -286,16 +293,6 @@ class FirewallStore {
         this.placeInfo = null;
         this.toggleAlertModal('수정이 완료되었습니다.');
     };
-
-    // @action detail = async () => {
-    //     this.root.toggleLoading();
-    //     const clients = this.api.clients();
-    //     const { data } = await clients.detail({ clientId: this.clientId, params: {} });
-    //     runInAction(() => {
-    //         this.root.toggleLoading();
-    //     });
-    //     this.detailData = data;
-    // };
 
     @action delete = async () => {
         this.root.toggleLoading();
@@ -358,7 +355,7 @@ class FirewallStore {
                 //     this[`${stateName}State`] = 'has-danger';
                 //     this[`${stateName}Text`] = '올바른 이메일 주소를 입력하세요.';
                 // }
-                this[stateName] = event.target.value;
+                this.qdata[stateName] = event.target.value;
                 break;
             case 'TYPE':
                 // if (this.verifyEmail(event.target.value)) {
@@ -368,49 +365,96 @@ class FirewallStore {
                 //     this[`${stateName}Text`] = '올바른 이메일 주소를 입력하세요.';
                 // }
                 //this[stateName] = event.target.value;
-                this[stateName] = {
-                    id: event.value,
-                    label: event.label,
-                };
+                // this.qdata[stateName] = {
+                //     id: event.value,
+                //     label: event.label,
+                // };
+                this.qdata[stateName] = event.label;
                 break;
             case 'TEXT':
-                this[stateName] = event.target.value;
+                this.qdata[stateName] = event.target.value;
+                break;
+            case 'NUMBER':
+                // eslint-disable-next-line radix
+                this.qdata[stateName] = parseInt(event.target.value);
                 break;
             default:
                 break;
         }
     };
 
+    @action handleAssignChange = (event, stateName, type, stateNameEqualTo) => {
+        switch(type) {
+            case 'TYPE':
+                break;
+            case 'TEXT':
+                this.assignee[stateName] = event.target.value;
+                break;
+            default:
+                break;
+        }
+    };
+
+    @action handleAddAssignees = async () => {
+        if (this.assignees)
+            this.assignee.order = this.assignees.length +1;
+        else this.assignee.order = 1;
+        this.assignees.push(this.assignee);
+    };
+
     @action handleFireRuleCheck = async () => {
         this.root.toggleLoading();
-        const params = ({
-            src_type: this.srcType.id,
-            src_address: this.srcIP,
-            dest_type: this.dstType.id,
-            dest_address: this.dstIP,
-            protocol: this.protocol.id,
-            port: this.port,
-            rule_action: this.ruleAction.id,
-            start_date: this.startDate,
-            end_date: this.endDate,
-            comment: this.comment,
-            status: '1'
-        });
+        this.qdata.status = '1';
+        const params = this.qdata;
         const { data } = await api.firewall.checkRule(params);
         runInAction(() => {
             this.root.toggleLoading();
         });
 
-        // console.log( data.data.compliance );
-        this.qdata = params;
         if (data.data.check === "ERROR") {
             this.qdata.message = data.data.message;
             this.message = data.data.message;
             this.toggleAlertModal(data.data.message);
-        } else {
+        } else if (data.data.check === "SUCCESS") {
             this.qdata.status = '0';
-            this.handleQsetPush(this.qdata);
+            if (this.qdata)
+                this.handleQsetPush(this.qdata);
         }
+    };
+
+    @action approvalFirewall = async () => {
+        this.root.toggleLoading();
+        const params = ({
+            rules: this.qdatas, assigns: this.assignees, creator: 8
+        });
+
+        const { data } = await api.firewall.apporoval(params);
+
+        runInAction(() => {
+            this.root.toggleLoading();
+        });
+
+        this.infoModal = false;
+        this.placeInfo = null;
+        this.toggleAlertModal('신청 처리 완료되었습니다.');
+    };
+
+    @action confirmApprovalFirewall = async () => {
+        this.root.toggleLoading();
+        const params = ({
+            task: this.detailData.data.task.id,
+            assignee: this.detailData.data.task.assignee.id, status: "APPROVED"
+        });
+
+        const { data } = await api.firewall.confirmApporoval(params);
+
+        runInAction(() => {
+            this.root.toggleLoading();
+        });
+
+        this.infoModal = false;
+        this.placeInfo = null;
+        this.toggleAlertModal('승인 처리 완료되었습니다.');
     };
 
     @action handleAssignRowsChange = value => {

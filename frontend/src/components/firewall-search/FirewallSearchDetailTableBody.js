@@ -9,18 +9,41 @@ class FirewallSearchDetailTableBody extends Component {
         const { store } = this.props;
         const { data } = store.detailData;
         if (data) {
-            return data.details.map((row, key) => {
+            return data.task.details.map((row, key) => {
                 return (
                     <tr onClick={() => store.toggleDetailInfoModal(row.id)} className="text-center" key={row.id}>
-                        <td>{`방문 ${key + 1}`}</td>
-                        <td>{row.src_type}</td>
-                        <td>{row.src_address}</td>
+                        <td>{`신청 ${key + 1}`}</td>
+                        <td>{`${row.src_type} : ${row.src_address}`}</td>
+                        <td>{`${row.dest_type} : ${row.dest_address}`}</td>
                         {/*<td>{row.checkedIn ? row.checkedIn.location.place.address : ''}</td>*/}
                         {/*<td>{row.checkedIn ? moment(row.checkedIn.datetime).format('YYYY.MM.DD dddd HH:mm:SS') : '-'}</td>*/}
                         {/*<td>{row.status === 'SCHEDULED' ? '미방문' : '방문'}</td>*/}
-                        <td>{row.dest_type}</td>
-                        <td>{row.dest_address}</td>
+                        <td>{row.protocol}</td>
                         <td>{row.port}</td>
+                        <td>{row.comment}</td>
+                    </tr>
+                );
+            });
+        }
+        return null;
+    };
+
+    renderAssigneeTableBody = () => {
+        const { store } = this.props;
+        const { data } = store.detailData;
+        if (data) {
+            return data.task.details.map((row, key) => {
+                return (
+                    <tr onClick={() => store.toggleDetailInfoModal(row.id)} className="text-center" key={row.id}>
+                        <td>{`신청 ${key + 1}`}</td>
+                        <td>{`${row.src_type} : ${row.src_address}`}</td>
+                        <td>{`${row.dest_type} : ${row.dest_address}`}</td>
+                        {/*<td>{row.checkedIn ? row.checkedIn.location.place.address : ''}</td>*/}
+                        {/*<td>{row.checkedIn ? moment(row.checkedIn.datetime).format('YYYY.MM.DD dddd HH:mm:SS') : '-'}</td>*/}
+                        {/*<td>{row.status === 'SCHEDULED' ? '미방문' : '방문'}</td>*/}
+                        <td>{row.protocol}</td>
+                        <td>{row.port}</td>
+                        <td>{row.comment}</td>
                     </tr>
                 );
             });

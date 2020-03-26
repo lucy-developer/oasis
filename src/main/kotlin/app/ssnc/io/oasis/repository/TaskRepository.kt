@@ -13,11 +13,14 @@ import java.util.*
 interface TaskRepository : CrudRepository<Task, Long> {
     fun findFirstByProjectIdOrderByIdDesc(projectId: Long): Task?
     fun findByCreator(creator: User) : List<Task>?
+    fun findByProjectId(projectId: Long): List<Task>?
     fun findByProjectIdAndCreatorOrAssignee(projectId: Long, creator: User, assignee: User ) : List<Task>?
 }
 
 @Repository
 interface TaskAssignRepository : CrudRepository<TaskAssign, Long> {
+    fun findByTaskIdAndOrderNo(taskId: Long, orderNo: Int) : TaskAssign?
+    fun findByTaskIdOrderByOrderNo(taskId: Long): List<TaskAssign>?
 }
 
 @Repository

@@ -5,6 +5,7 @@ import app.ssnc.io.oasis.config.ApiConfig.API_PATH
 import app.ssnc.io.oasis.config.ApiConfig.API_VERSION
 import app.ssnc.io.oasis.entity.request.FirewallRequest
 import app.ssnc.io.oasis.entity.request.SearchRuleRequest
+import app.ssnc.io.oasis.entity.request.processApporovalFirewallRequest
 import app.ssnc.io.oasis.entity.response.ResultResponse
 import app.ssnc.io.oasis.handler.firewall.service.FirewallService
 import io.swagger.annotations.Api
@@ -64,8 +65,9 @@ class FirewallController : ResponseEntityExceptionHandler() {
             ApiResponse(code = 422, message = "Firewall Compliance")
         )
     )
-    fun approvalFirewall(@RequestBody request: FirewallRequest) =
-        ok(firewallService.approvalFirewall(request))
+    fun approvalFirewall(@RequestBody request: FirewallRequest) : ResultResponse {
+        return ResultResponse.success(firewallService.approvalFirewall(request))
+    }
 
     @GetMapping("/approval/{userId}")
     @ApiOperation(value = "방화벽 승인 요청 검색 API")//, response = Greeting::class)
@@ -93,5 +95,19 @@ class FirewallController : ResponseEntityExceptionHandler() {
     )
     fun searchApprovalDetailFirewall(@PathVariable id: Long) : ResultResponse {
         return ResultResponse.success(data = firewallService.searchApprovalDetailFirewall(id))
+    }
+
+    @PostMapping("/approval/process")
+    @ApiOperation(value = "방화벽 승인 요청 처리 API")//, response = Greeting::class)
+    @ApiResponses(
+        value = *arrayOf(
+            ApiResponse(code = 200, message = "OK"),
+            ApiResponse(code = 401, message = "You are not authorized access the resource"),
+            ApiResponse(code = 404, message = "The resource not found"),
+            ApiResponse(code = 422, message = "Firewall Compliance")
+        )
+    )
+    fun processApprovalFirewall(@RequestBody request: processApporovalFirewallRequest) : ResultResponse {
+        return ResultResponse.success(firewallService.processApprovalFirewall(request))
     }
 }
