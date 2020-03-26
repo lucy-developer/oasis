@@ -17,6 +17,16 @@ class FirewallAPI extends Base {
         const url = ep.firewalls.detail();
         return this.apiClient.get(url+paylod)
     }
+
+    apporoval(paylod) {
+        const url = ep.firewalls.apporoval();
+        return this.apiClient.post(url, paylod);
+    }
+
+    confirmApporoval(payload){
+        const url = ep.firewalls.confirmApporoval();
+        return this.apiClient.post(url, payload);
+    }
     //
     // getAll() {
     //     const url = ep.users.all();

@@ -45,7 +45,7 @@ class FirewallSearch extends Component {
                             {firewallStore.approvalId ? (
                                 <FirewallSearchDetailBodyCard
                                     store={firewallStore}
-                                    tableHeader={['상태', '방문자', '방문 내용', '방문지 위치', '방문 일시', '방문 상태']}
+                                    tableHeader={['No', 'SOURCE', 'DESTINATION', '방문지 위치', '방문 일시', '방문 상태']}
                                 />
                             ) : (
                                 <FirewallSearchBodyCard

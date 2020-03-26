@@ -57,8 +57,8 @@ data class Task(
     var status: AuditStatus = AuditStatus.PENDING,
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "assignee_id", unique = false, nullable = false, insertable = true, updatable = true)
-    var assignee: User,
+    @JoinColumn(name = "assignee_id", unique = false, nullable = true, insertable = true, updatable = true)
+    var assignee: TaskAssign? = null,
 
     @Type(type = "jsonb")
     @Column(name = "details", columnDefinition = "jsonb")

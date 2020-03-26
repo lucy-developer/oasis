@@ -3,6 +3,8 @@ import {Button, CardLink} from 'reactstrap';
 import {observer} from 'mobx-react';
 import FirewallRow from "./FirewallRow";
 import FirewallRowDetail from "./FirewallRowDetail";
+import CustomInput from "../common/CustomInput";
+import CustomDate from "../common/CustomDate";
 /*import CustomInput from "../common/CustomInput";
 import CustomDate from "../common/CustomDate";
 import CustomSelect from "../common/CustomSelect";
@@ -37,7 +39,6 @@ class FirewallRequestTableBody extends Component {
         const table = [];
         // eslint-disable-next-line no-plusplus
         for (let i = 0; i < store.rows; i++) {
-            // row.push(<FirewallRow />)
             table.push(<FirewallRow store={store} />);
             table.push(
                 <div>
@@ -45,33 +46,40 @@ class FirewallRequestTableBody extends Component {
                 </div>
             );
         }
-
-        // eslint-disable-next-line no-undef
-        // const { items } = [{'aaa', 'bbb'}, bbb, ccc, ddd, eee, fff};
-        // if (items) {
-        //     return items.map((row, key) => {
-            // });
-        // }
         return table;
+    };
+
+    // eslint-disable-next-line consistent-return
+    renderRowDetail = () => {
+        const { store } = this.props;
+
+        if (store.qdatas) {
+            return store.qdatas.map((row, key) => {
+                return (
+                    <FirewallRowDetail
+                        srcType={row.src_type}
+                        srcAddress={row.src_address}
+                       destType={row.dest_type}
+                       destAddress={row.dest_address}
+                       protocol={row.protocol}
+                       port={row.port}
+                       ruleAction={row.rule_action}
+                       startDate={row.start_date}
+                       endDate={row.end_date}
+                       comment={row.comment}
+                    />
+                )
+            })
+        }
     };
 
     render() {
         const { store } = this.props;
 
-        const qdatasTable = store.qdatas.map(({row}) => (
-            <FirewallRowDetail store={store} />
-        ));
-
-        const dateStatus = store.qdata.status;
-        /*let rowDetail = null;
-        if (dateStatus === "1") {
-            rowDetail = <FirewallRowDetail store={store} />;
-        }*/
-
         return (
             <>
                 {this.renderTableBody()}
-                {qdatasTable}
+                {this.renderRowDetail()}
             </>
     );
 

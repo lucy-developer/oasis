@@ -5,6 +5,7 @@ import moment from 'moment';
 import TableHeaders from '../common/TableHeaders';
 import AlertModal from '../common/AlertModal';
 import FirewallSearchDetailTableBody from "./FirewallSearchDetailTableBody";
+import FirewallSearchAssigneesTableBody from "./FirewallSearchAssigneesTableBody";
 
 @inject('firewallStore')
 @observer
@@ -47,9 +48,14 @@ class FirewallSearchDetailBodyCard extends Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Button className="btn-link" color="default" type="button" onClick={store.detailMeetingEdit}>
-                                승인
-                            </Button>
+                            <Col className="table-body">
+                                <Table className="custom-table custom-table-clickable" bordered striped responsive>
+                                    <TableHeaders tableHeader={['No', '이름', '상태', '날짜', 'Action']} />
+                                    <tbody>
+                                    <FirewallSearchAssigneesTableBody store={store} />
+                                    </tbody>
+                                </Table>
+                            </Col>
                         </Row>
                     </CardBody>
                 </Card>

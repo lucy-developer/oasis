@@ -1,5 +1,6 @@
 package app.ssnc.io.oasis.entity.request
 
+import app.ssnc.io.oasis.entity.model.enum.AssignStatus
 import app.ssnc.io.oasis.entity.model.enum.Protocol
 import app.ssnc.io.oasis.entity.model.enum.RuleActions
 import app.ssnc.io.oasis.entity.model.type.json.JsonBinaryType
@@ -63,4 +64,10 @@ data class CreateProjectRequest(
     val name: String,
     val description: String,
     val owner: Long
+)
+
+data class processApporovalFirewallRequest (
+    val task: Long,
+    val assignee: Long,
+    @Enumerated(EnumType.STRING) val status: AssignStatus
 )

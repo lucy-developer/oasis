@@ -9,51 +9,79 @@ import CustomDate from "../common/CustomDate";
 class FirewallRowDetail extends Component {
 
     render() {
-        const { store } = this.props;
-
-        return (
-            <>
+        const { srcType, srcAddress, destType, destAddress, protocol, port, ruleAction, startDate, endDate, comment} = this.props;
+            return (
                 <tr className="text-center">
-                    <td style={{paddingLeft:"22px"}}>
-                        <input className="detail-row-input" type="text" name="srcAddressType" value={store.qdata.src_type} disabled />
-                    </td>
-                    <td>
-                        <CustomInput type="text" name="srcAddress" value={store.qdata.src_address} disabled={store.qdata.src_address} />
-                    </td>
-                    <td style={{paddingLeft:"22px"}}>
-                        <input className="detail-row-input" type="text" name="dstAddressType" value={store.qdata.dest_type} disabled={store.qdata.dest_type} />
-                    </td>
-                    <td>
-                        <CustomInput type="text" name="dstAddress" value={store.qdata.dest_address} disabled={store.qdata.dest_address} />
-                    </td>
-                    <td style={{paddingLeft:"22px"}}>
-                        <input className="detail-row-input" type="text" name="protocolType" value={store.qdata.protocol} disabled={store.qdata.protocol} />
-                    </td>
-                    <td>
-                        <div style={{width: "75px"}}>
-                            <CustomInput type="text" name="port" value={store.qdata.port} disabled={store.qdata.port} />
-                        </div>
-                    </td>
-                    <td style={{paddingLeft:"22px"}}>
-                        <input className="detail-row-input" type="text" name="protocolType" value={store.qdata.rule_action} disabled={store.qdata.rule_action} />
-                    </td>
-                    <td>
-                        <CustomDate
-                            handlePrevDateChange={store.handlePrevDateChange}
-                            handleEndDateChange={store.handleEndDateChange}
-                            prevDate={store.qdata.start_date}
-                            endDate={store.qdata.end_date}
+                    <td style={{paddingLeft: "22px"}}>
+                        <input
+                            className="detail-row-input"
+                            type="text"
+                            name="srcAddressType"
+                            value={srcType}
                             disabled
-                            yesterday
                         />
                     </td>
                     <td>
-                        <CustomInput type="text" name="protocolType" value={store.qdata.comment} disabled={store.qdata.comment} />
+                        <CustomInput
+                            type="text"
+                            name="srcAddress"
+                            value={srcAddress}
+                            disabled
+                        />
+                    </td>
+                    <td style={{paddingLeft: "22px"}}>
+                        <input
+                            className="detail-row-input"
+                            type="text"
+                            name="dstAddressType"
+                            value={destType}
+                            disabled
+                        />
+                    </td>
+                    <td>
+                        <CustomInput
+                            type="text"
+                            name="dstAddress"
+                            value={destAddress}
+                            disabled
+                        />
+                    </td>
+                    <td style={{paddingLeft: "22px"}}>
+                        <input
+                            className="detail-row-input"
+                            type="text"
+                            name="protocolType"
+                            value={protocol}
+                               disabled
+                        />
+                    </td>
+                    <td>
+                        <div style={{width: "75px"}}>
+                            <CustomInput type="text" name="port" value={port} disabled />
+                        </div>
+                    </td>
+                    <td style={{paddingLeft: "22px"}}>
+                        <input
+                            className="detail-row-input"
+                            type="text"
+                            name="protocolType"
+                            value={ruleAction}
+                               disabled
+                        />
+                    </td>
+                    <td>
+                        <CustomDate
+                            prevDate={startDate}
+                            endDate={endDate}
+                            disabled
+                        />
+                    </td>
+                    <td>
+                        <CustomInput type="text" name="protocolType" value={comment} disabled />
                     </td>
                 </tr>
-            </>
-        );
-    }
+            )
+    };
 }
 
 export default FirewallRowDetail;

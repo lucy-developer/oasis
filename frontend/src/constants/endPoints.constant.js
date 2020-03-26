@@ -14,5 +14,7 @@ export default {
         checkRule: () => 'v1/firewall/search',
         search: () => 'v1/firewall/approval/',
         detail: () => 'v1/firewall/approval/detail/',
+        apporoval: () => 'v1/firewall/approval',
+        confirmApporoval: () => 'v1/firewall/approval/process',
     }
 };
