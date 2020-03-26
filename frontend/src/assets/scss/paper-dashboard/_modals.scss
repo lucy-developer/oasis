@@ -64,7 +64,7 @@
     color: #000;
 }
 .modal-footer {
-    border-top: 1px solid $medium-gray;
+    /*border-top: 1px solid $medium-gray;*/
     padding: 0px;
     flex-wrap: inherit;
 
@@ -77,11 +77,11 @@
     display: inline-block;
     text-align: center;
     width: 50%;
-    padding: 5px;
+    /*padding: 5px;*/
 }
 .modal-footer .btn-link{
-    padding: 20px;
-    width: 100%;
+    /*padding: 20px;
+    width: 100%;*/
     margin: 0;
 }
 .modal-footer .divider{

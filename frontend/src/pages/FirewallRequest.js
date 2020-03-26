@@ -18,7 +18,7 @@ class FirewallRequest extends Component {
             <div className="admin-page">
                 <Container fluid>
                     <Row>
-                        <Col>
+                        <Col style={{paddingLeft:"42px"}}>
                             <h3>
                                 {'방화벽 > 방화벽 신청'}
                             </h3>

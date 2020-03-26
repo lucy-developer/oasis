@@ -6,7 +6,7 @@ import ApllyForm from "../common/ApplyForm";
 import FirewallRequestTableBody from "./FirewallRequestTableBody";
 import plus from '../../assets/img/button_plus.png';
 import '../../assets/scss/FirewallRequest.scss';
-import AssignedForm from "./AssignedForm";
+//import AssignedForm from "./AssignedForm";
 
 @observer
 class FirewallRequestBodyCard extends Component {
@@ -33,13 +33,13 @@ class FirewallRequestBodyCard extends Component {
        const { store, tableHeader } = this.props;
 
        return (
-           <div>
+           <div style={{padding: "0px 42px"}}>
                <Card>
                    <CardBody className="body-card">
                        <Row>
                            <Col className="table-body">
                                <Table className="custom-table custom-table-clickable" bordered striped responsive>
-                                   <TableHeaders tableHeader={tableHeader} />
+                                   {/* <TableHeaders tableHeader={tableHeader} /> */}
                                    <tbody>
                                    <FirewallRequestTableBody store={store} removeRow={this.removeRow} />
                                    </tbody>
@@ -54,28 +54,30 @@ class FirewallRequestBodyCard extends Component {
                                </svg>*/}
                                <img src={plus} alt="logo" className="imgBtn" />
                            </Button>
+                           {/*
                            <Button onClick={this.removeRow} className="firewallBtn">
                                {/*<svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" id="svg" version="1.1" viewBox="0, 0, 400,400">
                                    <g id="svgg"><path id="path0" d="M85.333 85.333 C 19.189 151.478,19.189 248.522,85.333 314.667 C 190.592 419.925,360.000 349.202,360.000 200.000 C 360.000 50.798,190.592 -19.925,85.333 85.333 M280.000 200.000 C 280.000 207.407,244.444 213.333,200.000 213.333 C 155.556 213.333,120.000 207.407,120.000 200.000 C 120.000 192.593,155.556 186.667,200.000 186.667 C 244.444 186.667,280.000 192.593,280.000 200.000 " /></g>
-                               </svg>*/}
-                               <div>-</div>
-                           </Button>
+                               </svg>
+                                <div>-</div>
+                            </Button>
+                           */}
                        </div>
                    </CardBody>
                    <CardBody className="body-card">
-                       <AssignedForm store={store} />
+                       {/* <AssignedForm store={store} /> */}
                    </CardBody>
                </Card>
                <div className="modal-footer">
-                   <div className="left-side">
-                       <Button className="btn-link" type="button" onClick={store.toggleDetailInfoModal}>
-                           취소
+                   <div className="right-side">
+                       <Button className="btn-link firewall-request" color="default" type="button" onClick={store.detailMeetingEdit}>
+                           요청
                        </Button>
                    </div>
-                   <div className="divider" />
-                   <div className="right-side">
-                       <Button className="btn-link" color="default" type="button" onClick={store.detailMeetingEdit}>
-                           요청
+                   {/* <div className="divider" /> */}
+                   <div className="left-side">
+                       <Button className="btn-link firewall-request" type="button" onClick={store.toggleDetailInfoModal}>
+                           취소
                        </Button>
                    </div>
                </div>

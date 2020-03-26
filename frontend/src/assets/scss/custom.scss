@@ -105,6 +105,7 @@
   .datetime-custom {
     background-color: #FFFFFF;
     cursor: pointer;
+    width: 135px;
   }
   .datetime-custom-left {
     padding-right: 0;
@@ -164,7 +165,7 @@
 
   .table-body {
     //margin-top: 1rem;
-    padding: 0px;
+    //padding: 0px;
 
     th {
       /*background-color: $default-color;
@@ -213,7 +214,7 @@
   .modal-footer {
     button {
       background: transparent;
-      border: 2px solid rgba(102, 97, 91, 1) !important;
+      //border: 2px solid rgba(102, 97, 91, 1) !important;
       color: rgba(102, 97, 91, 1);
       opacity: 1;
       &:hover {
@@ -365,4 +366,36 @@
 
 .detail-input{
   width: 105px;
+}
+
+.firewall-request{
+  width: 317px;
+  height: 66px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px 0 rgba(56, 66, 72, 0.2);
+  background-color: #1e7fba;
+
+  font-family: NotoSansCJKkr;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: -0.48px;
+  color: #ffffff;
+}
+
+.firewall-cancel{
+  width: 317px;
+  height: 66px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px 0 rgba(56, 66, 72, 0.2);
+  background-color: #ffffff;
+
+  font-family: NotoSansCJKkr;
+  font-size: 24px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: -0.48px;
+  color: #000000;
 }

@@ -9,7 +9,7 @@ class CustomDate extends Component {
 
         return (
             <>
-                <Col md="4" xs="8" style={{ width: "257px", paddingLeft: "0px" }}>
+                <Col md="4" xs="8" style={{ width: "257px"}}>
                     <Row style={{ width: "285px" }}>
                         <Col xs="5" className="datetime-custom-left" style={{ paddingLeft: "0px", width: "120px" }}>
                             <FormGroup>

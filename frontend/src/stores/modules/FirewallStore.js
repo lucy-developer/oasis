@@ -64,6 +64,8 @@ class FirewallStore {
 
     @observable comment = '';
 
+    @observable qdatas = [];
+
     @observable qdata = {
         src_type: '',
         src_address: '',
@@ -344,7 +346,7 @@ class FirewallStore {
     };
 
     @action handleQsetPush = value => {
-        this.qdata.push(value)
+        this.qdatas.push(value)
     };
 
     @action  handleChange = (event, stateName, type, stateNameEqualTo) => {
