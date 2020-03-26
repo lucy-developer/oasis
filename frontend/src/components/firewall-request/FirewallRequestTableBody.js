@@ -3,10 +3,10 @@ import {Button, CardLink} from 'reactstrap';
 import {observer} from 'mobx-react';
 import FirewallRow from "./FirewallRow";
 import FirewallRowDetail from "./FirewallRowDetail";
-import CustomInput from "../common/CustomInput";
+/*import CustomInput from "../common/CustomInput";
 import CustomDate from "../common/CustomDate";
 import CustomSelect from "../common/CustomSelect";
-import AssignedRow from "./AssignedRow";
+import AssignedRow from "./AssignedRow";*/
 
 @observer
 class FirewallRequestTableBody extends Component {

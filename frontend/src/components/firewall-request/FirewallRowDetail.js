@@ -11,40 +11,33 @@ class FirewallRowDetail extends Component {
     render() {
         const { store } = this.props;
 
-        const detailInputSelect = {
-            width:"105px",
-        };
-
-        const detailInput = {
-            paddingLeft: "15px",
-            paddingRight: "15px"
-        };
-
         return (
-            <div style={{paddingLeft: "15px"}}>
+            <div style={{padding: "0px 15px 15px"}}>
                 <tr className="text-center">
-                    <td style={{width:"105px"}}>
-                        <CustomInput type="text" name="srcAddressType" value={store.qdata.src_type} disabled={store.qdata.src_type} />
+                    <td style={{width:"102px"}}>
+                        <CustomInput type="text" name="srcAddressType" value={store.qdata.src_type} disabled />
                     </td>
-                    <td style={detailInput}>
+                    <td style={{padding:"0px 15.5px"}}>
                         <CustomInput type="text" name="srcAddress" value={store.qdata.src_address} disabled={store.qdata.src_address} />
                     </td>
-                    <td style={detailInputSelect}>
+                    <td style={{width:"102px"}}>
                         <CustomInput type="text" name="dstAddressType" value={store.qdata.dest_type} disabled={store.qdata.dest_type} />
                     </td>
-                    <td style={detailInput}>
+                    <td style={{padding:"0px 15.5px"}}>
                         <CustomInput type="text" name="dstAddress" value={store.qdata.dest_address} disabled={store.qdata.dest_address} />
                     </td>
-                    <td style={detailInputSelect}>
+                    <td style={{width:"102px"}}>
                         <CustomInput type="text" name="protocolType" value={store.qdata.protocol} disabled={store.qdata.protocol} />
                     </td>
-                    <td style={detailInput}>
-                        <CustomInput type="text" name="port" value={store.qdata.port} disabled={store.qdata.port} />
+                    <td style={{padding:"0px 15.5px"}}>
+                        <div style={{width: "75px"}}>
+                            <CustomInput type="text" name="port" value={store.qdata.port} disabled={store.qdata.port} />
+                        </div>
                     </td>
-                    <td style={detailInputSelect}>
+                    <td style={{width:"102px"}}>
                         <CustomInput type="text" name="protocolType" value={store.qdata.rule_action} disabled={store.qdata.rule_action} />
                     </td>
-                    <td style={{paddingLeft: "15px"}}>
+                    <td style={{paddingLeft:"15.5px"}}>
                         <CustomDate
                             handlePrevDateChange={store.handlePrevDateChange}
                             handleEndDateChange={store.handleEndDateChange}

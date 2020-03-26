@@ -139,13 +139,13 @@
     }
 
     &.btn-link{
-        color: $btn-color;
+        /*color: $btn-color;*/
 
         &:hover,
         &:focus,
         &:active,
         &:active:focus {
-            background-color: $transparent-bg;
+            //background-color: $transparent-bg;
             color: $btn-states-color;
             text-decoration: none;
             box-shadow: none;
